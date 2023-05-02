@@ -1,0 +1,8 @@
+{
+  "everblush": { "branch": "main", "commit": "655c1e52fe311993c4908609691f3587451d1145" },
+  "lazy.nvim": { "branch": "main", "commit": "bb5cc9ef3bbb17541929b745f74551c900188099" },
+  "nvim-tree.lua": { "branch": "master", "commit": "0df384b6c0fa62ff1333634d56ee4df0be5d34e1" },
+  "nvim-treesitter": { "branch": "master", "commit": "b4d2640eab4b1f6373e1ded84ab9f6db0c02c756" },
+  "nvim-web-devicons": { "branch": "master", "commit": "b34362b20a4942b3245f958e73ebe1b09b020ad1" },
+  "plenary.nvim": { "branch": "master", "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054" }
+}
