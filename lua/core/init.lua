@@ -4,8 +4,18 @@ local opt = vim.opt
 opt.laststatus = 3
 opt.showmode = false
 opt.fsync = false
-g.clipboard = { name = "win32yank", copy = { ["+"] = "win32yank -i --crlf", ["*"] = "win32yank -i --crlf", },
-    paste = { ["+"] = "win32yank -o --lf", ["*"] = "win32yank -o --lf", }, cache_enabled = 1, }
+g.clipboard = {
+    name = "win32yank",
+    copy = {
+        ["+"] = "win32yank -i --crlf",
+        ["*"] = "win32yank -i --crlf"
+    },
+    paste = {
+        ["+"] = "win32yank -o --lf",
+        ["*"] = "win32yank -o --lf"
+    },
+    cache_enabled = 1
+}
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
 
@@ -16,7 +26,9 @@ opt.smartindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
 
-opt.fillchars = { eob = " " }
+opt.fillchars = {
+    eob = " "
+}
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
@@ -44,14 +56,13 @@ opt.updatetime = 1000
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
 
-g.mapleader = " "
-
-for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
-  vim.g["loaded_" .. provider .. "_provider"] = 0
+for _, provider in ipairs {"node", "perl", "python3", "ruby"} do
+    vim.g["loaded_" .. provider .. "_provider"] = 0
 end
 -- Add Mason bin to PATH
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.env.PATH .. (is_windows and ";" or ":") .. vim.fn.stdpath "data" .. "/mason/bin"
 
 -- hide default colorschemes
-opt.wildignore:append { vim.env.VIMRUNTIME .. '/colors/*.vim' }
+opt.wildignore:append{vim.env.VIMRUNTIME .. '/colors/*.vim'}
+require('keymap')
