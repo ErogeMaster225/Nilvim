@@ -46,7 +46,7 @@ function keymap.nowait(opt)
 end
 
 function keymap.new_opts(...)
-    local args = {...}
+    local args = { ... }
     local o = opts:new()
 
     if #args == 0 then
@@ -75,7 +75,7 @@ end
 -- @private
 local keymap_set = function(mode, tbl)
     vim.validate({
-        tbl = {tbl, 'table'}
+        tbl = { tbl, 'table' }
     })
     local len = #tbl
     if len < 2 then
@@ -91,7 +91,7 @@ end
 local function map(mod)
     return function(tbl)
         vim.validate({
-            tbl = {tbl, 'table'}
+            tbl = { tbl, 'table' }
         })
 
         if type(tbl[1]) == 'table' and type(tbl[2]) == 'table' then

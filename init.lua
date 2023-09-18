@@ -1,15 +1,7 @@
-require "core"
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+-- Compile lua to bytecode if the nvim version supports it.
+if vim.loader and vim.fn.has "nvim-0.9.1" == 1 then
+    vim.loader.enable()
 end
-vim.opt.rtp:prepend(lazypath)
-require "plugins"
+
+require "core"
 vim.cmd("colorscheme everblush")

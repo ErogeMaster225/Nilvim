@@ -13,28 +13,30 @@ xmap({ ' ', '', opts(noremap) })
 
 -- usage example
 nmap({
+    { ':', ';', opts(noremap) },
+    { ';', ':', opts(noremap) },
 	-- noremal remap
 	-- close buffer
-	{ '<C-x>k', cmd('bdelete'), opts(noremap, silent) },
+	{ '<C-x>k',    cmd('bdelete'),                opts(noremap, silent) },
 	-- save
-	{ '<C-s>', cmd('write'), opts(noremap) },
+	{ '<C-s>',     cmd('write'),                  opts(noremap) },
 	-- yank
-	{ 'Y', 'y$', opts(noremap) },
+	{ 'Y',         'y$',                          opts(noremap) },
 	-- buffer jump
-	{ ']b', cmd('bn'), opts(noremap) },
-	{ '[b', cmd('bp'), opts(noremap) },
+	{ ']b',        cmd('bn'),                     opts(noremap) },
+	{ '[b',        cmd('bp'),                     opts(noremap) },
 	-- remove trailing white space
 	{ '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
 	-- window jump
-	{ '<C-h>', '<C-w>h', opts(noremap) },
-	{ '<C-l>', '<C-w>l', opts(noremap) },
-	{ '<C-j>', '<C-w>j', opts(noremap) },
-	{ '<C-k>', '<C-w>k', opts(noremap) },
+	{ '<C-h>',     '<C-w>h',                      opts(noremap) },
+	{ '<C-l>',     '<C-w>l',                      opts(noremap) },
+	{ '<C-j>',     '<C-w>j',                      opts(noremap) },
+	{ '<C-k>',     '<C-w>k',                      opts(noremap) },
 })
 
 imap({
 	-- insert mode
-	{ '<C-h>', '<Bs>', opts(noremap) },
+	{ '<C-h>', '<Bs>',  opts(noremap) },
 	{ '<C-e>', '<End>', opts(noremap) },
 })
 
@@ -43,6 +45,6 @@ cmap({ '<C-b>', '<Left>', opts(noremap) })
 -- usage of plugins
 nmap({
 	-- plugin manager: Lazy.nvim
-	{ '<Leader>pu', cmd('Lazy update'), opts(noremap, silent) },
+	{ '<Leader>pu', cmd('Lazy update'),  opts(noremap, silent) },
 	{ '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
 })
