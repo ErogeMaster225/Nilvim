@@ -35,12 +35,10 @@ return {
 				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-path",
 			},
+			{
+				"onsails/lspkind.nvim"
+			}
 		},
-		--[[ opts = function()
-			return require "plugins.configs.cmp"
-		end,
-		config = function(_, opts)
-			require("cmp").setup(opts)
-		end, ]]
+		config = config.cmp
 	},
 }

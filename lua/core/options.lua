@@ -19,6 +19,9 @@ g.clipboard = {
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
 
+-- Use space as leader key
+g.mapleader = " "
+
 -- Indenting
 opt.expandtab = true
 opt.shiftwidth = 4
@@ -64,4 +67,4 @@ for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
 end
 
 -- hide default colorschemes
-opt.wildignore:append { vim.env.VIMRUNTIME .. '/colors/*.vim' }
+opt.wildignore:append { vim.env.VIMRUNTIME .. "/colors/*.vim" }
