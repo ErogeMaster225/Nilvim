@@ -76,4 +76,28 @@ function config.treesitter()
 	})
 end
 
+function config.lspconfig()
+	local lspconfig = require('lspconfig')
+	local on_attach = function(client)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
+	end
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	lspconfig.lua_ls.setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim" }
+				}
+			}
+		}
+	}
+	lspconfig.emmet_language_server.setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
+end
+
 return config
