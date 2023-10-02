@@ -329,4 +329,8 @@ function config.feline()
 	})
 end
 
+function config.bufferline()
+	require("bufferline").setup()
+end
+
 return config
