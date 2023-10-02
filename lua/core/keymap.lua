@@ -1,114 +1,69 @@
 local keymap = {}
-local opts = {}
 
-function opts:new(instance)
-    instance = instance or {
-        options = {
-            silent = false,
-            nowait = false,
-            expr = false,
-            noremap = false
-        }
+keymap.general = {
+    n = {
+        [" "] = { "", "Disable default space" },
+        [";"] = { ":", "Enter command mode", opts = { silent = false } },
+        [":"] = { ";", "Repeat f/t motion", opts = { silent = false } },
+        ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
+        -- switch between windows
+        ["<C-h>"] = { "<C-w>h", "Window left" },
+        ["<C-l>"] = { "<C-w>l", "Window right" },
+        ["<C-j>"] = { "<C-w>j", "Window down" },
+        ["<C-k>"] = { "<C-w>k", "Window up" },
+        -- move current line in normal mode
+        ["<A-j>"] = { ":m .+1<CR>==", "Move current line down" },
+        ["<A-k>"] = { ":m .-2<CR>==", "Move current line up" },
+        -- save
+        ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
+        -- Select all
+        ["<C-a>"] = { "ggVG", "Select whole file" },
+        -- Copy all
+        ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
+        -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
+        -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+        -- empty mode is same as using <cmd> :map
+        -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
+        --[[  ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down" },
+        ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up" },
+        ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up" },
+        ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down" }, ]]
+        -- d is for delete
+        ["x"] = { "\"_x", "Delete character" },
+        ["X"] = { "\"_X", "Delete character before" },
+        ["d"] = { "\"_d", "Delete with motion" },
+        ["D"] = { "\"_D", "Delete till end of line" },
+        ["<leader>d"] = { "\"*d", "Cut with motion" },
+        ["<leader>D"] = { "\"*D", "Cut till end of line" },
+    },
+    i = {
+        -- navigate within insert mode
+        ["<C-h>"] = { "<Left>", "Move left" },
+        ["<C-l>"] = { "<Right>", "Move right" },
+        ["<C-j>"] = { "<Down>", "Move down" },
+        ["<C-k>"] = { "<Up>", "Move up" },
+        -- move current line in insert mode
+        ["<A-j>"] = { "<Esc>:m .+1<CR>==gi", "Move current line down" },
+        ["<A-k>"] = { "<Esc>:m .-2<CR>==gi", "Move current line up" },
+    },
+    x = {
+        [" "] = { "", "Disable default space" },
+        -- move multiple lines in visual mode
+        ["<a-j>"] = { function()
+            local line = math.max(vim.fn.line "v", vim.fn.line ".") + vim.v.count1
+            line = math.min(line, vim.fn.line "$")
+            return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
+        end, "Move multiple lines down", opts = { expr = true } },
+
+        ["<a-k>"] = { function()
+            local line = math.min(vim.fn.line "v", vim.fn.line ".") - vim.v.count1
+            line = math.max(line - 1, 0)
+            return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
+        end, "Move multiple lines up", opts = { expr = true } },
+    },
+    v = {
+        ["d"] = { "\"_d", "Delete selected" },
+        ["<leader>d"] = { "\"*d", "Cut selected" }
     }
-    setmetatable(instance, self)
-    self.__index = self
-    return instance
-end
-
-function keymap.silent(opt)
-    return function()
-        opt.silent = true
-    end
-end
-
-function keymap.noremap(opt)
-    return function()
-        opt.noremap = true
-    end
-end
-
-function keymap.expr(opt)
-    return function()
-        opt.expr = true
-    end
-end
-
-function keymap.remap(opt)
-    return function()
-        opt.remap = true
-    end
-end
-
-function keymap.nowait(opt)
-    return function()
-        opt.nowait = true
-    end
-end
-
-function keymap.new_opts(...)
-    local args = { ... }
-    local o = opts:new()
-
-    if #args == 0 then
-        return o.options
-    end
-
-    for _, arg in pairs(args) do
-        if type(arg) == 'string' then
-            o.options.desc = arg
-        else
-            arg(o.options)()
-        end
-    end
-    return o.options
-end
-
-function keymap.cmd(str)
-    return '<cmd>' .. str .. '<CR>'
-end
-
--- visual
-function keymap.cu(str)
-    return '<C-u><cmd>' .. str .. '<CR>'
-end
-
--- @private
-local keymap_set = function(mode, tbl)
-    vim.validate({
-        tbl = { tbl, 'table' }
-    })
-    local len = #tbl
-    if len < 2 then
-        vim.notify('keymap must has rhs')
-        return
-    end
-
-    local options = len == 3 and tbl[3] or keymap.new_opts()
-
-    vim.keymap.set(mode, tbl[1], tbl[2], options)
-end
-
-local function map(mod)
-    return function(tbl)
-        vim.validate({
-            tbl = { tbl, 'table' }
-        })
-
-        if type(tbl[1]) == 'table' and type(tbl[2]) == 'table' then
-            for _, v in pairs(tbl) do
-                keymap_set(mod, v)
-            end
-        else
-            keymap_set(mod, tbl)
-        end
-    end
-end
-
-keymap.nmap = map('n')
-keymap.imap = map('i')
-keymap.cmap = map('c')
-keymap.vmap = map('v')
-keymap.xmap = map('x')
-keymap.tmap = map('t')
-
+}
 return keymap

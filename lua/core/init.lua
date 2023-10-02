@@ -1,3 +1,3 @@
 require("core.options")
-require("keymap")
+require("core.helper").load_keymap("general")
 require("core.plugins")

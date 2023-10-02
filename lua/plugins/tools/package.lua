@@ -6,7 +6,13 @@ return {
         cmd = "NvimTreeToggle",
         dependencies = "nvim-tree/nvim-web-devicons"
     },
-    "folke/which-key.nvim",
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("which-key").setup {}
+        end
+    },
     {
         "nvim-telescope/telescope.nvim",
         opts = {},

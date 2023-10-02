@@ -1,4 +1,5 @@
 local helper = {}
+local merge_tb = vim.tbl_deep_extend
 helper.path_sep = package.config:sub(1, 1) == '\\' and '\\' or '/'
 
 function helper.path_join(...)
@@ -26,6 +27,20 @@ end
 --- Check if a directory exists in this path
 function helper.isdir(path)
     return exists(path .. '/')
+end
+
+function helper.load_keymap(group, mapping_opts)
+    vim.schedule(function()
+        local mappings = require("core.keymap")[group]
+        local default_opts = merge_tb("force", { silent = true, noremap = true }, mapping_opts or {})
+        for mode, mode_values in pairs(mappings) do
+            for keybind, mapping_info in pairs(mode_values) do
+                local opts = merge_tb("force", default_opts, mapping_info.opts or {})
+                opts.desc = mapping_info[2]
+                vim.keymap.set(mode, keybind, mapping_info[1], opts)
+            end
+        end
+    end)
 end
 
 return helper
