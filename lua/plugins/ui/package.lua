@@ -10,7 +10,9 @@ return {
 	},
 	{ "Everblush/nvim", name = "everblush" },
 	{
-		"lewis6991/gitsigns.nvim"
+		"lewis6991/gitsigns.nvim",
+		event = "BufRead",
+		config = config.gitsigns
 	},
 	{
 		"freddiehaddad/feline.nvim",
@@ -22,5 +24,15 @@ return {
 		event = "BufRead",
 		config = config.indent_blankline,
 		dependencies = "HiPhish/rainbow-delimiters.nvim"
+	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		config = config.noice,
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify"
+		}
 	}
 }

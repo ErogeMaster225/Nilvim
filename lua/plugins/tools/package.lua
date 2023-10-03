@@ -1,11 +1,7 @@
+local config = require("plugins.tools.config")
+
 return {
     "nvim-lua/plenary.nvim",
-    {
-        "nvim-tree/nvim-tree.lua",
-        opts = {},
-        cmd = "NvimTreeToggle",
-        dependencies = "nvim-tree/nvim-web-devicons"
-    },
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
@@ -14,11 +10,16 @@ return {
         end
     },
     {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
+    {
         "nvim-telescope/telescope.nvim",
         opts = {},
-        cmd = "Telescope"
+        cmd = "Telescope",
+        config = config.telescope
     },
-    {"folke/neodev.nvim", opts = {}},
+    { "folke/neodev.nvim", opts = {} },
     {
         "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async"

@@ -100,4 +100,19 @@ function config.lspconfig()
 	}
 end
 
+function config.none_ls()
+	local null_ls = require("null-ls")
+	local b = null_ls.builtins
+	local sources = {
+		b.formatting.stylua,
+		b.formatting.prettier.with {
+			filetypes = { "html", "markdown", "css" },
+		},
+		b.formatting.deno_fmt,
+	}
+	null_ls.setup({
+		sources = sources,
+	})
+end
+
 return config

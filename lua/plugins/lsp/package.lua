@@ -12,7 +12,10 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		config = config.lspconfig,
-		dependencies = "williamboman/mason.nvim"
+		dependencies = {
+			"williamboman/mason.nvim",
+			"nvimtools/none-ls.nvim"
+		}
 	},
 	{
 		"williamboman/mason.nvim",
@@ -24,5 +27,9 @@ return {
 		cmd = { "TroubleToggle", "Trouble" },
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {}
+	},
+	{
+		"nvimtools/none-ls.nvim",
+		config = config.none_ls
 	}
 }
