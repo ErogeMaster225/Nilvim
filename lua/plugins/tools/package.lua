@@ -10,14 +10,14 @@ return {
         end
     },
     {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-    },
-    {
         "nvim-telescope/telescope.nvim",
         opts = {},
         cmd = "Telescope",
-        config = config.telescope
+        config = config.telescope,
+        dependencies = {
+            "nvim-telescope/telescope-file-browser.nvim",
+            "nvim-telescope/telescope-fzy-native.nvim"
+        }
     },
     { "folke/neodev.nvim", opts = {} },
     {
