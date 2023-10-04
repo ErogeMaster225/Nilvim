@@ -1,4 +1,45 @@
 local config = {}
+
+function config.nordic()
+	local palette = require("nordic.colors")
+	local nordic = require("nordic")
+	nordic.setup {
+		cursorline = {
+			bold = true
+		},
+		override = {
+			TelescopePromptNormal = {
+				bg = palette.black0,
+			},
+			TelescopePromptBorder = {
+				bg = palette.black0,
+				fg = palette.black0,
+			},
+			TelescopePromptPrefix = {
+				bg = palette.black0,
+			},
+			TelescopeResultsBorder = {
+				bg = palette.black1,
+				fg = palette.black1
+			},
+			TelescopeResultsTitle = {
+				bg = palette.green.base
+			},
+			TelescopeResultsNormal = {
+				bg = palette.black1
+			},
+			TelescopePreviewBorder = {
+				bg = palette.black1,
+				fg = palette.black1
+			},
+			TelescopePreviewNormal = {
+				bg = palette.black1
+			},
+		}
+	}
+	nordic.load()
+end
+
 function config.indent_blankline()
 	local highlight = {
 		"RainbowRed",
