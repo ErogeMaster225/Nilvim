@@ -19,9 +19,13 @@ return {
             "nvim-telescope/telescope-fzy-native.nvim"
         }
     },
-    { "folke/neodev.nvim", opts = {} },
     {
         "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async"
+    },
+    {
+        "karb94/neoscroll.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = config.neoscroll,
     }
 }

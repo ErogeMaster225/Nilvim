@@ -78,21 +78,45 @@ end
 
 function config.lspconfig()
 	local lspconfig = require('lspconfig')
-	local on_attach = function(client)
+	local on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
+		require("core.helper").load_keymap("lspconfig", { buffer = bufnr })
+		if client.server_capabilities.signatureHelpProvider then
+			require("erogemaster225.signature").setup(client)
+		end
 	end
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem = {
+		documentationFormat = { "markdown", "plaintext" },
+		snippetSupport = true,
+		preselectSupport = true,
+		insertReplaceSupport = true,
+		labelDetailsSupport = true,
+		deprecatedSupport = true,
+		commitCharactersSupport = true,
+		tagSupport = { valueSet = { 1 } },
+		resolveSupport = {
+			properties = {
+				"documentation",
+				"detail",
+				"additionalTextEdits",
+			},
+		},
+	}
 	lspconfig.lua_ls.setup {
 		on_attach = on_attach,
 		capabilities = capabilities,
 		settings = {
 			Lua = {
-				diagnostics = {
-					globals = { "vim" }
-				}
-			}
-		}
+				workspace = {
+					checkThirdParty = false,
+				},
+				completion = {
+					callSnippet = "Replace",
+				},
+			},
+		},
 	}
 	lspconfig.emmet_language_server.setup {
 		on_attach = on_attach,

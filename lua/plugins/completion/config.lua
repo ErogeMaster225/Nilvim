@@ -31,7 +31,6 @@ end
 
 function config.cmp()
     local cmp = require("cmp")
-    vim.opt.completeopt = "menuone,noselect"
     local lspkind = require("lspkind")
     local function border(hl_name)
         return {
@@ -56,13 +55,18 @@ function config.cmp()
     end
 
     local options = {
+        completion = {
+            completeopt = "menu,menuone",
+        },
         window = {
             completion = {
-                border = border "CmpBorder",
-                winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None"
+                side_padding = 0,
+                winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
+                scrollbar = false,
             },
             documentation = {
-                border = border "CmpDocBorder"
+                border = border "CmpDocBorder",
+                winhighlight = "Normal:CmpDoc",
             }
         },
         snippet = {
@@ -71,12 +75,12 @@ function config.cmp()
             end
         },
         formatting = {
+            fields = { "kind", "abbr", "menu" },
             format = lspkind.cmp_format(
                 {
-                    mode = "symbol_text", -- show only symbol annotations
-                    maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-                    ellipsis_char =
-                    "..."                 -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+                    mode = "symbol",
+                    maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                    ellipsis_char = "..."
                 }
             )
         },
@@ -88,42 +92,33 @@ function config.cmp()
             ["<C-Space>"] = cmp.mapping.complete(),
             ["<C-e>"] = cmp.mapping.close(),
             ["<CR>"] = cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = false
+                behavior = cmp.ConfirmBehavior.Insert,
+                select = true
             },
-            ["<Tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif require("luasnip").expand_or_jumpable() then
-                        vim.fn.feedkeys(
-                            vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true),
-                            ""
-                        )
-                    else
-                        fallback()
-                    end
-                end,
-                {
-                    "i",
-                    "s"
-                }
-            ),
-            ["<S-Tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif require("luasnip").jumpable(-1) then
-                        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-                    else
-                        fallback()
-                    end
-                end,
-                {
-                    "i",
-                    "s"
-                }
-            )
+            ["<Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif require("luasnip").expand_or_jumpable() then
+                    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+                else
+                    fallback()
+                end
+            end, {
+                "i",
+                "s",
+            }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                elseif require("luasnip").jumpable(-1) then
+                    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+                else
+                    fallback()
+                end
+            end, {
+                "i",
+                "s",
+            }),
         },
         sources = {
             { name = "luasnip" },

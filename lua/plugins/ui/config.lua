@@ -35,6 +35,18 @@ function config.nordic()
 			TelescopePreviewNormal = {
 				bg = palette.black1
 			},
+
+			NoiceCmdlinePopupTitle = {
+				bg = palette.blue2,
+				fg = palette.black0
+			},
+			NoiceCmdlinePopupBorderCmdline = {
+				bg = palette.black1,
+				fg = palette.black1
+			},
+			NoiceCmdlinePopupBorderSearch = {
+				bg = palette.black1,
+			},
 		}
 	}
 	nordic.load()
@@ -81,7 +93,14 @@ function config.gitsigns()
 			topdelete = { text = "‾" },
 			changedelete = { text = "~" },
 			untracked = { text = "│" }
-		}
+		},
+		current_line_blame = true,
+		current_line_blame_opts = {
+			delay = 500
+		},
+		on_attach = function(bufnr)
+			require("core.helper").load_keymap("gitsigns", { buffer = bufnr })
+		end
 	}
 	require("gitsigns").setup(opts)
 end
@@ -371,7 +390,28 @@ function config.feline()
 end
 
 function config.bufferline()
-	require("bufferline").setup()
+	require("bufferline").setup {
+		options = {
+			always_show_bufferline = false,
+			mode = "buffers",
+			numbers = "ordinal",
+			close_command = "bdelete! %d",
+			right_mouse_command = "bdelete! %d",
+			left_mouse_command = "buffer %d",
+			middle_mouse_command = nil,
+			diagnostics = "nvim_lsp",
+			diagnostics_indicator = function(count, level, diagnostics_dict, context)
+				local icon = level:match("error") and " " or " "
+				return " " .. icon .. count
+			end,
+			separator_style = "thin",
+			hover = {
+				enabled = true,
+				delay = 200,
+				reveal = { 'close' }
+			}
+		}
+	}
 end
 
 function config.noice()
@@ -386,11 +426,11 @@ function config.noice()
 		},
 		-- you can enable a preset for easier configuration
 		presets = {
-			bottom_search = true, -- use a classic bottom cmdline for search
-			command_palette = true, -- position the cmdline and popupmenu together
+			bottom_search = true,         -- use a classic bottom cmdline for search
+			command_palette = true,       -- position the cmdline and popupmenu together
 			long_message_to_split = true, -- long messages will be sent to a split
-			inc_rename = false,  -- enables an input dialog for inc-rename.nvim
-			lsp_doc_border = false, -- add a border to hover docs and signature help
+			inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+			lsp_doc_border = false,       -- add a border to hover docs and signature help
 		},
 	})
 end
