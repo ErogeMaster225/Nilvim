@@ -79,8 +79,10 @@ end
 function config.lspconfig()
 	local lspconfig = require('lspconfig')
 	local on_attach = function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
+		if client.name ~= 'lua_ls' then
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+		end
 		require("core.helper").load_keymap("lspconfig", { buffer = bufnr })
 		if client.server_capabilities.signatureHelpProvider then
 			require("erogemaster225.signature").setup(client)
@@ -109,6 +111,13 @@ function config.lspconfig()
 		capabilities = capabilities,
 		settings = {
 			Lua = {
+				format = {
+					enable = true,
+					defaultConfig = {
+						indent_style = "space",
+						indent_size = 2,
+					}
+				},
 				workspace = {
 					checkThirdParty = false,
 				},
@@ -128,7 +137,6 @@ function config.none_ls()
 	local null_ls = require("null-ls")
 	local b = null_ls.builtins
 	local sources = {
-		b.formatting.stylua,
 		b.formatting.prettier.with {
 			filetypes = { "html", "markdown", "css" },
 		},

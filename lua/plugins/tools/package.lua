@@ -13,6 +13,9 @@ return {
         "nvim-telescope/telescope.nvim",
         opts = {},
         cmd = "Telescope",
+        init = function ()
+            require('core.helper').load_keymap('telescope')
+        end,
         config = config.telescope,
         dependencies = {
             "nvim-telescope/telescope-file-browser.nvim",

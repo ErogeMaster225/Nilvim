@@ -18,6 +18,8 @@ g.clipboard = {
 }
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
+opt.numberwidth = 6
+opt.statuscolumn = ' %s%=%{v:relnum?v:relnum:v:lnum}%= ▎ '
 
 -- Use space as leader key
 g.mapleader = " "

@@ -114,6 +114,13 @@ keymap.gitsigns = {
 keymap.lspconfig = {
     -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
     n = {
+        ["<leader>fm"] = {
+            function()
+                vim.lsp.buf.format()
+            end,
+            desc = "LSP format",
+        },
+
         ["gD"] = {
             function()
                 vim.lsp.buf.declaration()
@@ -228,5 +235,11 @@ keymap.lspconfig = {
             desc = "LSP code action",
         },
     },
+}
+
+keymap.telescope = {
+    n = {
+        ["<C-p>"] = { "<cmd>Telescope find_files<CR>", desc = "Telescope file search" }
+    }
 }
 return keymap
