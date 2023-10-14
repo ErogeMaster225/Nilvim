@@ -59,6 +59,7 @@ function config.telescope()
 	}
 	require("telescope").load_extension "file_browser"
 	require('telescope').load_extension "fzy_native"
+	require("telescope").load_extension "notify"
 end
 
 function config.neoscroll()
@@ -77,6 +78,16 @@ function config.neoscroll()
 	t['gg']    = { 'scroll', { '-2*vim.api.nvim_buf_line_count(0)', 'true', '1', [['sine']] } }
 	t['G']     = { 'scroll', { '2*vim.api.nvim_buf_line_count(0)', 'true', '1', [['sine']] } }
 	require('neoscroll.config').set_mappings(t)
+end
+
+function config.which_key()
+	require("which-key").setup {
+		window = {
+			border = { '', '▔', '', '', '', ' ', '', '' },
+			margin = { 0, 0, 1, 0 },
+			padding = { 0, 0, 0, 0 },
+		},
+	}
 end
 
 return config

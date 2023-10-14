@@ -8,7 +8,6 @@ return {
         event = "UIEnter",
         config = config.bufferline
     },
-    -- { "Everblush/nvim", name = "everblush" },
     {
         "AlexvZyl/nordic.nvim",
         lazy = false,
@@ -36,9 +35,11 @@ return {
         event = "VeryLazy",
         config = config.noice,
         dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify"
+            {
+                "rcarriga/nvim-notify",
+                config = config.notify
+            }
         }
     }
 }
