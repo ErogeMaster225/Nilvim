@@ -21,7 +21,13 @@ return {
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
-        config = config.mason
+        config = config.mason,
+        dependencies = "nvim-telescope/telescope.nvim"
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
+        config = config.mason_tool_installer
     },
     {
         "folke/trouble.nvim",
@@ -34,12 +40,11 @@ return {
         config = config.none_ls
     },
     {
+        'stevearc/conform.nvim',
+        opts = {},
+    },
+    {
         "pmizio/typescript-tools.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        ft = { "typescript", "typescriptreact" },
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        config = function()
-            require('typescript-tools').setup {}
-        end
     },
 }

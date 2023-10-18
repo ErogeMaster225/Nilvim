@@ -116,7 +116,21 @@ keymap.lspconfig = {
     n = {
         ["<leader>fm"] = {
             function()
-                vim.lsp.buf.format()
+                local clients = {}
+                for _, tbl in ipairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+                    local name = tbl.name
+                    table.insert(clients, name)
+                end
+                vim.ui.select(clients, {
+                    prompt = 'Choose a formatter:'
+                }, function(choice)
+                    vim.lsp.buf.format {
+                        filter = function(client)
+                            return client.name == choice
+                        end,
+                        async = true
+                    }
+                end)
             end,
             desc = "LSP format",
         },
@@ -177,7 +191,7 @@ keymap.lspconfig = {
             desc = "LSP references",
         },
 
-        ["<leader>f"] = {
+        ["<leader>fd"] = {
             function()
                 vim.diagnostic.open_float { border = "rounded" }
             end,

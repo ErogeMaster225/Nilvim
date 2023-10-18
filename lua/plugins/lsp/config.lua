@@ -14,6 +14,25 @@ function config.mason()
 	})
 end
 
+function config.mason_tool_installer()
+	require('mason-tool-installer').setup {
+		ensure_installed = {
+			'css-lsp',
+			'emmet-language-server',
+			'eslint-lsp',
+			'eslint_d',
+			'html-lsp',
+			'json-lsp',
+			'lua-language-server',
+			'prettier',
+			'prettierd',
+			'svelte-language-server',
+			'typescript-language-server',
+			'vue-language-server',
+		}
+	}
+end
+
 function config.treesitter()
 	vim.opt.foldmethod = 'expr'
 	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -131,6 +150,10 @@ function config.lspconfig()
 		on_attach = on_attach,
 		capabilities = capabilities,
 	}
+	require('typescript-tools').setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
 end
 
 function config.none_ls()
@@ -138,9 +161,8 @@ function config.none_ls()
 	local b = null_ls.builtins
 	local sources = {
 		b.formatting.prettier.with {
-			filetypes = { "html", "markdown", "css" },
+			filetypes = { "html", "markdown", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
 		},
-		b.formatting.deno_fmt,
 	}
 	null_ls.setup({
 		sources = sources,
