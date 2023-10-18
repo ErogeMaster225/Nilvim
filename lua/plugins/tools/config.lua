@@ -12,6 +12,7 @@ function config.telescope()
 				"--line-number",
 				"--column",
 				"--smart-case",
+				"--trim"
 			},
 			prompt_prefix = "   ",
 			selection_caret = "  ",
@@ -51,6 +52,11 @@ function config.telescope()
 				n = { ["q"] = require("telescope.actions").close },
 			},
 		},
+		pickers = {
+			find_files = {
+				find_command = { "rg", "--files", "-uu", "--glob", "!**/.git/*" }
+			}
+		},
 		extensions = {
 			file_browser = {
 				hijack_netrw = true,
@@ -60,6 +66,7 @@ function config.telescope()
 	require("telescope").load_extension "file_browser"
 	require('telescope').load_extension "fzy_native"
 	require("telescope").load_extension "notify"
+	require("telescope").load_extension "ui-select"
 end
 
 function config.neoscroll()
