@@ -408,12 +408,8 @@ end
 function config.bufferline()
     require("bufferline").setup {
         options = {
-            always_show_bufferline = false,
             mode = "buffers",
             numbers = "ordinal",
-            close_command = "bdelete! %d",
-            right_mouse_command = "bdelete! %d",
-            left_mouse_command = "buffer %d",
             middle_mouse_command = nil,
             diagnostics = "nvim_lsp",
             diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -471,7 +467,6 @@ function config.notify()
     vim.notify = require("notify")
     vim.notify.setup({
         fps = 60,
-        max_width = 50,
     })
 end
 
