@@ -13,7 +13,6 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         config = config.lspconfig,
         dependencies = {
-            "williamboman/mason.nvim",
             "nvimtools/none-ls.nvim",
             { "folke/neodev.nvim", opts = {} },
         }

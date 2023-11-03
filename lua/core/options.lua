@@ -67,6 +67,7 @@ opt.whichwrap:append "<>[]hl"
 for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
     vim.g["loaded_" .. provider .. "_provider"] = 0
 end
-
+-- Add binaries from mason.nvim to path
+vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (require('core.helper').is_win and ";" or ":") .. vim.env.PATH
 -- hide default colorschemes
 opt.wildignore:append { vim.env.VIMRUNTIME .. "/colors/*.vim" }
