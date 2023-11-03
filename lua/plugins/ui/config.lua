@@ -56,7 +56,19 @@ function config.nordic()
             NoicePopupmenuSelected = {
                 fg = palette.yellow.base,
                 bg = palette.gray0,
-            }
+            },
+            DiagnosticUnderlineError= {
+                undercurl = false
+            },
+            DiagnosticUnderlineWarn= {
+                undercurl = false
+            },
+            DiagnosticUnderlineInfo= {
+                undercurl = false
+            },
+            DiagnosticUnderlineHint= {
+                undercurl = false
+            },
         }
     }
     nordic.load()
@@ -460,6 +472,12 @@ function config.noice()
                 scrollbar = false,
             },
         },
+        routes = {
+            {
+                view = "mini",
+                filter = { event = "msg_showmode" }
+            }
+        }
     })
 end
 
