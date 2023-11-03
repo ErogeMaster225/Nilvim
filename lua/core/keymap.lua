@@ -5,7 +5,7 @@ keymap.general = {
         [" "] = { "", desc = "Disable default space" },
         [";"] = { ":", desc = "Enter command mode", opts = { silent = false } },
         [":"] = { ";", desc = "Repeat f/t motion", opts = { silent = false } },
-        ["<Esc>"] = { ":noh <CR>", desc = "Clear highlights" },
+        ["<Esc>"] = { ":noh <CR><Esc>", desc = "Clear highlights" },
         -- switch between windows
         ["<C-h>"] = { "<C-w>h", desc = "Window left" },
         ["<C-l>"] = { "<C-w>l", desc = "Window right" },
@@ -15,8 +15,8 @@ keymap.general = {
         ["<A-j>"] = { ":m .+1<CR>==", desc = "Move current line down" },
         ["<A-k>"] = { ":m .-2<CR>==", desc = "Move current line up" },
         -- buffer jump
-        ["b["] = { "<cmd> bp <CR>", desc = "Jump to next buffer" },
-        ["b]"] = { "<cmd> bn <CR>", desc = "Jump to previous buffer" },
+        ["<leader>["] = { "<cmd> bp <CR>", desc = "Jump to next buffer" },
+        ["<leader>]"] = { "<cmd> bn <CR>", desc = "Jump to previous buffer" },
         -- save
         ["<C-s>"] = { "<cmd> w <CR>", desc = "Save file" },
         -- Select all
@@ -117,7 +117,7 @@ keymap.lspconfig = {
         ["<leader>fm"] = {
             function()
                 local clients = {}
-                for _, tbl in ipairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+                for _, tbl in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
                     local name = tbl.name
                     table.insert(clients, name)
                 end
@@ -253,7 +253,25 @@ keymap.lspconfig = {
 
 keymap.telescope = {
     n = {
-        ["<C-p>"] = { "<cmd>Telescope find_files<CR>", desc = "Telescope file search" }
+        ["<C-p>"] = { "<cmd>Telescope find_files<CR>", desc = "Telescope file search" },
+        ["<leader>F"] = { "<cmd>Telescope live_grep<CR>", desc = "Telescope grep" },
+        ["<F5>"] = { "<cmd>Telescope file_browser<CR>", desc = "Telescope file browser"}
+    }
+}
+
+keymap.toggleterm = {
+    n = {
+        ["<leader>tt"] = {
+            function()
+                vim.cmd(":ToggleTerm " .. (vim.v.count > 0 and vim.v.count or ""))
+            end,
+            desc = "Toggle terminal" }
+    }
+}
+
+keymap.trouble = {
+    n = {
+        ["<leader>tb"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" }
     }
 }
 return keymap

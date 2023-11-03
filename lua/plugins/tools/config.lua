@@ -97,4 +97,10 @@ function config.which_key()
 	}
 end
 
+function config.toggleterm()
+    require("toggleterm").setup {
+        direction = 'float'
+    }
+end
+
 return config

@@ -30,6 +30,9 @@ return {
     },
     {
         "folke/trouble.nvim",
+        init = function()
+            require("core.helper").load_keymap("trouble")
+        end,
         cmd = { "TroubleToggle", "Trouble" },
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {}
