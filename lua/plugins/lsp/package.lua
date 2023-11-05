@@ -43,7 +43,11 @@ return {
     },
     {
         'stevearc/conform.nvim',
-        opts = {},
+        config = config.conform,
+    },
+    {
+        'mfussenegger/nvim-lint',
+        config = config.lint,
     },
     {
         "pmizio/typescript-tools.nvim",
