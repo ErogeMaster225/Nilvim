@@ -49,5 +49,30 @@ return {
                 config = config.notify
             }
         }
+    },
+    {
+        "folke/twilight.nvim",
+        event = "VeryLazy",
+        opts = {
+            expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+                "function",
+                "method",
+                "table",
+                "if_statement",
+                "field"
+            },
+        }
+    },
+    {
+        "folke/zen-mode.nvim",
+        event = "VeryLazy",
+        opts = {}
+    },
+    {
+        'stevearc/oil.nvim',
+        event = "VeryLazy",
+        opts = {},
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     }
 }

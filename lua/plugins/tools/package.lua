@@ -76,6 +76,31 @@ return {
     {
         'akinsho/toggleterm.nvim',
         version = "*",
+        init = function()
+            require('core.helper').load_keymap('toggleterm')
+        end,
+
+        cmd = "ToggleTerm",
         config = config.toggleterm
+    },
+    {
+        'Darazaki/indent-o-matic',
+        event = "VeryLazy",
+        config = function()
+            require('indent-o-matic').setup {
+                max_lines = 2048,
+                standard_widths = { 2, 4, 8 },
+                skip_multiline = true,
+            }
+        end
+
+    },
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({})
+        end,
     }
 }
