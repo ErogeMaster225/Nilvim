@@ -212,7 +212,7 @@ keymap.lspconfig = {
             desc = "Goto next",
         },
 
-        ["<leader>q"] = {
+        ["<leader>dq"] = {
             function()
                 vim.diagnostic.setloclist()
             end,
@@ -254,6 +254,7 @@ keymap.lspconfig = {
 keymap.telescope = {
     n = {
         ["<C-p>"] = { "<cmd>Telescope find_files<CR>", desc = "Telescope file search" },
+        ["<leader>p"] = { "<cmd>Telescope frecency<CR>", desc = "Telescope frecency search" },
         ["<leader>F"] = { "<cmd>Telescope live_grep<CR>", desc = "Telescope grep" },
         ["<F5>"] = { "<cmd>Telescope file_browser<CR>", desc = "Telescope file browser"}
     }

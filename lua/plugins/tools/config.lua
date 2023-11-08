@@ -103,4 +103,8 @@ function config.toggleterm()
     }
 end
 
+function config.mini()
+	require('mini.surround').setup()
+end
+
 return config

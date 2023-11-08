@@ -27,7 +27,7 @@ return {
     },
     {
         "karb94/neoscroll.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        -- event = { "BufReadPre", "BufNewFile" },
         config = config.neoscroll,
     },
     {
@@ -102,5 +102,10 @@ return {
         config = function()
             require("copilot").setup({})
         end,
-    }
+    },
+    {
+        "echasnovski/mini.nvim",
+        event = "VeryLazy",
+        config = config.mini
+    },
 }
