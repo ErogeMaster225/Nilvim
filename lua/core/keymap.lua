@@ -117,7 +117,7 @@ keymap.lspconfig = {
         ["<leader>fm"] = {
             function()
                 local clients = {}
-                for _, tbl in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                for _, tbl in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
                     local name = tbl.name
                     table.insert(clients, name)
                 end
@@ -254,9 +254,9 @@ keymap.lspconfig = {
 keymap.telescope = {
     n = {
         ["<C-p>"] = { "<cmd>Telescope find_files<CR>", desc = "Telescope file search" },
+        ["<leader>b"] = { "<cmd>Telescope buffers<CR>", desc = "Telescope buffer search" },
         ["<leader>p"] = { "<cmd>Telescope frecency<CR>", desc = "Telescope frecency search" },
         ["<leader>F"] = { "<cmd>Telescope live_grep<CR>", desc = "Telescope grep" },
-        ["<F5>"] = { "<cmd>Telescope file_browser<CR>", desc = "Telescope file browser"}
     }
 }
 
@@ -273,6 +273,11 @@ keymap.toggleterm = {
 keymap.trouble = {
     n = {
         ["<leader>tb"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" }
+    }
+}
+keymap.tree = {
+    n = {
+        ["<F5>"] = { "<cmd>NvimTreeToggle<CR>", desc = "Open file browser"}
     }
 }
 return keymap

@@ -108,4 +108,37 @@ return {
         event = "VeryLazy",
         config = config.mini
     },
+    {
+        "toppair/peek.nvim",
+        event = { "VeryLazy" },
+        build = "deno task --quiet build:fast",
+        config = function()
+            require("peek").setup({
+                app = 'broz'
+            })
+            -- refer to `configuration to change defaults`
+            vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+            vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+        end,
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        init = function()
+            require('core.helper').load_keymap('tree')
+        end,
+        lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = config.tree
+    },
+    {
+        'ldelossa/nvim-ide',
+        -- event = "VeryLazy",
+        lazy = true,
+        config = function ()
+            require('ide').setup {}
+        end
+    }
 }

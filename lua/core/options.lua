@@ -1,5 +1,7 @@
 local g = vim.g
 local opt = vim.opt
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
 opt.laststatus = 3
 opt.showmode = false
@@ -64,6 +66,20 @@ opt.foldenable = false
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
 
+-- disable netrw
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+
+local group = augroup('TabWidth', {clear = false})
+autocmd({"BufRead", "BufNewFile"}, {
+    group = group,
+    pattern = '~/workspace/*',
+    callback = function()
+        vim.bo.shiftwidth = 2
+        vim.bo.tabstop = 2
+        vim.bo.softtabstop = 2
+    end
+})
 for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
     vim.g["loaded_" .. provider .. "_provider"] = 0
 end
