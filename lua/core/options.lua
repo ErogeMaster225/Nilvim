@@ -6,18 +6,6 @@ local autocmd = vim.api.nvim_create_autocmd
 opt.laststatus = 3
 opt.showmode = false
 opt.fsync = false
-g.clipboard = {
-    name = "win32yank",
-    copy = {
-        ["+"] = "win32yank -i --crlf",
-        ["*"] = "win32yank -i --crlf"
-    },
-    paste = {
-        ["+"] = "win32yank -o --lf",
-        ["*"] = "win32yank -o --lf"
-    },
-    cache_enabled = 1
-}
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
 opt.numberwidth = 6
@@ -70,8 +58,8 @@ opt.whichwrap:append "<>[]hl"
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
-local group = augroup('TabWidth', {clear = false})
-autocmd({"BufRead", "BufNewFile"}, {
+local group = augroup('TabWidth', { clear = false })
+autocmd({ "BufRead", "BufNewFile" }, {
     group = group,
     pattern = '~/workspace/*',
     callback = function()
