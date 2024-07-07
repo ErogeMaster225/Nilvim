@@ -56,6 +56,7 @@ function config.treesitter()
             'markdown',
             'markdown_inline',
             'python',
+            'regex',
             'rust',
             'scss',
             'tsx',
@@ -156,9 +157,9 @@ function config.none_ls()
         b.formatting.prettierd.with {
             filetypes = { "html", "markdown", "css", "svelte", "javascript", "javascriptreact", "typescript", "typescriptreact" },
         },
-        b.code_actions.eslint_d,
-        b.formatting.eslint_d,
-        b.diagnostics.eslint_d
+        require("none-ls.code_actions.eslint_d"),
+        require("none-ls.formatting.eslint_d"),
+        require("none-ls.diagnostics.eslint_d")
     }
     null_ls.setup({
         sources = sources,

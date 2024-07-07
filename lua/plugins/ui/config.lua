@@ -296,7 +296,7 @@ function config.feline()
                 return ""
             end
 
-            local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+            local clients = vim.lsp.get_clients({ bufnr = 0 })
             if #clients ~= 0 then
                 if progress then
                     local spinners = {

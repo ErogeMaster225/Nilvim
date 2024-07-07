@@ -2,6 +2,17 @@ local config = require("plugins.lsp.config")
 
 return {
     {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         event = "BufRead",
         build = ":TSUpdate",
@@ -14,7 +25,6 @@ return {
         config = config.lspconfig,
         dependencies = {
             "nvimtools/none-ls.nvim",
-            { "folke/neodev.nvim", opts = {} },
         }
     },
     {
@@ -39,7 +49,10 @@ return {
     },
     {
         "nvimtools/none-ls.nvim",
-        config = config.none_ls
+        config = config.none_ls,
+        dependencies = {
+            "nvimtools/none-ls-extras.nvim",
+        }
     },
     {
         'stevearc/conform.nvim',
