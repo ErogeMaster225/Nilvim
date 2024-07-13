@@ -56,17 +56,25 @@ keymap.general = {
     x = {
         [" "] = { "", "Disable default space" },
         -- move multiple lines in visual mode
-        ["<a-j>"] = { function()
-            local line = math.max(vim.fn.line "v", vim.fn.line ".") + vim.v.count1
-            line = math.min(line, vim.fn.line "$")
-            return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
-        end, desc = "Move multiple lines down", opts = { expr = true } },
+        ["<a-j>"] = {
+            function()
+                local line = math.max(vim.fn.line "v", vim.fn.line ".") + vim.v.count1
+                line = math.min(line, vim.fn.line "$")
+                return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
+            end,
+            desc = "Move multiple lines down",
+            opts = { expr = true }
+        },
 
-        ["<a-k>"] = { function()
-            local line = math.min(vim.fn.line "v", vim.fn.line ".") - vim.v.count1
-            line = math.max(line - 1, 0)
-            return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
-        end, desc = "Move multiple lines up", opts = { expr = true } },
+        ["<a-k>"] = {
+            function()
+                local line = math.min(vim.fn.line "v", vim.fn.line ".") - vim.v.count1
+                line = math.max(line - 1, 0)
+                return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
+            end,
+            desc = "Move multiple lines up",
+            opts = { expr = true }
+        },
     },
     v = {
         ["d"] = { "\"_d", desc = "Delete selected" },
@@ -81,8 +89,10 @@ keymap.gitsigns = {
         ['<leader>hu'] = { require("gitsigns").undo_stage_hunk, desc = "Undo stage hunk" },
         ['<leader>hR'] = { require("gitsigns").reset_buffer, desc = "Reset buffer" },
         ['<leader>hp'] = { require("gitsigns").preview_hunk, desc = "Preview hunk" },
-        ['<leader>hb'] = { function() require("gitsigns").blame_line { full = true } end,
-            desc = "Show git blame in float window" },
+        ['<leader>hb'] = {
+            function() require("gitsigns").blame_line { full = true } end,
+            desc = "Show git blame in float window"
+        },
         ['<leader>hd'] = { require("gitsigns").diffthis, desc = "Diff this" },
         ['<leader>hD'] = { function() require("gitsigns").diffthis('~1') end, desc = "Diff with last commit" },
         ['<leader>td'] = { require("gitsigns").toggle_deleted, desc = "Toggle deleted" },
@@ -93,7 +103,8 @@ keymap.gitsigns = {
                 return '<Ignore>'
             end,
             desc = "Jump to next hunk",
-            opts = { expr = true } },
+            opts = { expr = true }
+        },
 
         ['[c'] = {
             function()
@@ -102,13 +113,18 @@ keymap.gitsigns = {
                 return '<Ignore>'
             end,
             desc = "Jump to previous hunk",
-            opts = { expr = true } }
+            opts = { expr = true }
+        }
     },
     v = {
-        ['<leader>hr'] = { function() require("gitsigns").reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
-            desc = "Reset selected hunk" },
-        ['<leader>hs'] = { function() require("gitsigns").stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
-            desc = "Stage selected hunk" },
+        ['<leader>hr'] = {
+            function() require("gitsigns").reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+            desc = "Reset selected hunk"
+        },
+        ['<leader>hs'] = {
+            function() require("gitsigns").stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+            desc = "Stage selected hunk"
+        },
     }
 }
 keymap.lspconfig = {
@@ -266,7 +282,8 @@ keymap.toggleterm = {
             function()
                 vim.cmd(":ToggleTerm " .. (vim.v.count > 0 and vim.v.count or ""))
             end,
-            desc = "Toggle terminal" }
+            desc = "Toggle terminal"
+        }
     }
 }
 
@@ -277,7 +294,24 @@ keymap.trouble = {
 }
 keymap.tree = {
     n = {
-        ["<F5>"] = { "<cmd>NvimTreeToggle<CR>", desc = "Open file browser"}
+        ["<F5>"] = { "<cmd>NvimTreeToggle<CR>", desc = "Open file browser" }
+    }
+}
+keymap.ufo = {
+    n = {
+        ["zR"] = {
+            function()
+                require("ufo").openAllFolds()
+            end,
+            desc = "Open all folds"
+        },
+        ["zM"] = {
+            function()
+                require("ufo").closeAllFolds()
+            end,
+            desc = "Close all folds"
+        }
+
     }
 }
 return keymap

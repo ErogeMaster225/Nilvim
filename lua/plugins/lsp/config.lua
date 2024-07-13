@@ -34,8 +34,6 @@ function config.mason_tool_installer()
 end
 
 function config.treesitter()
-    vim.opt.foldmethod = 'expr'
-    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     require('nvim-treesitter.configs').setup({
         ensure_installed = {
             'astro',
@@ -109,6 +107,11 @@ function config.lspconfig()
         end ]]
     end
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+    }
+
     lspconfig.lua_ls.setup {
         on_attach = on_attach,
         capabilities = capabilities,

@@ -23,7 +23,12 @@ return {
     },
     {
         "kevinhwang91/nvim-ufo",
-        dependencies = "kevinhwang91/promise-async"
+        lazy = false,
+        dependencies = "kevinhwang91/promise-async",
+        config = function()
+            require('ufo').setup()
+            require("core.helper").load_keymap("ufo")
+        end
     },
     {
         "karb94/neoscroll.nvim",
@@ -137,8 +142,17 @@ return {
         'ldelossa/nvim-ide',
         -- event = "VeryLazy",
         lazy = true,
-        config = function ()
+        config = function()
             require('ide').setup {}
+        end
+    },
+    {
+        'sindrets/diffview.nvim',
+        lazy = false,
+        config = function()
+            require('diffview').setup {
+                enhanced_diff_hl = true,
+            }
         end
     }
 }

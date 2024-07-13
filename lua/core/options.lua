@@ -10,7 +10,6 @@ opt.clipboard = "unnamedplus"
 opt.cursorline = true
 opt.numberwidth = 6
 opt.statuscolumn = ' %s%=%{v:relnum?v:relnum:v:lnum}%= ▎ '
-
 -- Use space as leader key
 g.mapleader = " "
 
@@ -22,7 +21,9 @@ opt.tabstop = 4
 opt.softtabstop = 4
 
 opt.fillchars = {
-    eob = " "
+    eob = " ",
+    fold = " ",
+    diff = "╱",
 }
 opt.ignorecase = true
 opt.smartcase = true
@@ -48,8 +49,10 @@ opt.cmdheight = 1
 opt.updatetime = 1000
 
 -- disable folding on startup
-opt.foldenable = false
-
+opt.foldenable = true
+opt.foldcolumn = '1' -- '0' is not bad
+opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevelstart = 99
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
