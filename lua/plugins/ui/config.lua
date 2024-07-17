@@ -3,9 +3,9 @@ local config = {}
 function config.nordic()
     local palette = require("nordic.colors")
     local nordic = require("nordic")
-    nordic.setup {
+    nordic.setup({
         cursorline = {
-            bold = true
+            bold = true,
         },
         override = {
             TelescopePromptNormal = {
@@ -20,25 +20,25 @@ function config.nordic()
             },
             TelescopeResultsBorder = {
                 bg = palette.black1,
-                fg = palette.black1
+                fg = palette.black1,
             },
             TelescopeResultsTitle = {
-                bg = palette.green.base
+                bg = palette.green.base,
             },
             TelescopeResultsNormal = {
-                bg = palette.black1
+                bg = palette.black1,
             },
             TelescopePreviewBorder = {
                 bg = palette.black1,
-                fg = palette.black1
+                fg = palette.black1,
             },
             TelescopePreviewNormal = {
-                bg = palette.black1
+                bg = palette.black1,
             },
 
             NoiceCmdlinePopupTitle = {
                 bg = palette.blue2,
-                fg = palette.black0
+                fg = palette.black0,
             },
             NoicePopupBorder = {
                 bg = palette.black1,
@@ -57,20 +57,20 @@ function config.nordic()
                 fg = palette.yellow.base,
                 bg = palette.gray0,
             },
-            DiagnosticUnderlineError= {
-                undercurl = false
+            DiagnosticUnderlineError = {
+                undercurl = false,
             },
-            DiagnosticUnderlineWarn= {
-                undercurl = false
+            DiagnosticUnderlineWarn = {
+                undercurl = false,
             },
-            DiagnosticUnderlineInfo= {
-                undercurl = false
+            DiagnosticUnderlineInfo = {
+                undercurl = false,
             },
-            DiagnosticUnderlineHint= {
-                undercurl = false
+            DiagnosticUnderlineHint = {
+                undercurl = false,
             },
-        }
-    }
+        },
+    })
     nordic.load()
 end
 
@@ -82,32 +82,29 @@ function config.indent_blankline()
         "RainbowOrange",
         "RainbowGreen",
         "RainbowViolet",
-        "RainbowCyan"
+        "RainbowCyan",
     }
-    local hooks = require "ibl.hooks"
+    local hooks = require("ibl.hooks")
     -- create the highlight groups in the highlight setup hook, so they are reset
     -- every time the colorscheme changes
-    hooks.register(
-        hooks.type.HIGHLIGHT_SETUP,
-        function()
-            vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-            vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-            vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-            vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-            vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-            vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-            vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-        end
-    )
-    local rainbow_delimiters = require 'rainbow-delimiters'
+    hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+    end)
+    local rainbow_delimiters = require("rainbow-delimiters")
     vim.g.rainbow_delimiters = {
         query = {
-            [''] = 'rainbow-delimiters',
-            lua = 'rainbow-blocks',
+            [""] = "rainbow-delimiters",
+            lua = "rainbow-blocks",
         },
-        highlight = highlight
+        highlight = highlight,
     }
-    require("ibl").setup { indent = { highlight = highlight }, scope = { enabled = false } }
+    require("ibl").setup({ indent = { highlight = highlight }, scope = { enabled = false } })
 
     hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 end
@@ -120,21 +117,21 @@ function config.gitsigns()
             delete = { text = "󰍵" },
             topdelete = { text = "‾" },
             changedelete = { text = "~" },
-            untracked = { text = "│" }
+            untracked = { text = "│" },
         },
         current_line_blame = true,
         current_line_blame_opts = {
-            delay = 500
+            delay = 500,
         },
         on_attach = function(bufnr)
             require("core.helper").load_keymap("gitsigns", { buffer = bufnr })
-        end
+        end,
     }
     require("gitsigns").setup(opts)
 end
 
 function config.feline()
-    local feline = require "feline"
+    local feline = require("feline")
     local theme = {
         aqua = "#7AB0DF",
         bg = "#1C212A",
@@ -149,7 +146,7 @@ function config.feline()
         pink = "#D997C8",
         purple = "#C397D8",
         red = "#F87070",
-        yellow = "#FFE59E"
+        yellow = "#FFE59E",
     }
 
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE", fg = "#7AB0DF" })
@@ -193,12 +190,18 @@ function config.feline()
         ["r?"] = "C",
         ["!"] = "SH",
         ["t"] = "T",
-    }, { __index = function() return "-" end })
+    }, {
+        __index = function()
+            return "-"
+        end,
+    })
 
     local component = {}
 
     component.vim_mode = {
-        provider = function() return modes[vim.api.nvim_get_mode().mode] end,
+        provider = function()
+            return modes[vim.api.nvim_get_mode().mode]
+        end,
         hl = function()
             return {
                 fg = "bg",
@@ -287,14 +290,10 @@ function config.feline()
 
     component.lsp = {
         provider = function()
-            if not rawget(vim, "lsp") then
-                return ""
-            end
+            if not rawget(vim, "lsp") then return "" end
 
             local progress = vim.lsp.status()
-            if vim.o.columns < 120 then
-                return ""
-            end
+            if vim.o.columns < 120 then return "" end
 
             local clients = vim.lsp.get_clients({ bufnr = 0 })
             if #clients ~= 0 then
@@ -347,11 +346,39 @@ function config.feline()
     component.scroll_bar = {
         provider = function()
             local chars = setmetatable({
-                " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
                 " ",
-                " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
                 " ",
-            }, { __index = function() return " " end })
+            }, {
+                __index = function()
+                    return " "
+                end,
+            })
             local line_ratio = vim.api.nvim_win_get_cursor(0)[1] / vim.api.nvim_buf_line_count(0)
             local position = math.floor(line_ratio * 100)
 
@@ -364,7 +391,8 @@ function config.feline()
             return icon
         end,
         hl = function()
-            local position = math.floor(vim.api.nvim_win_get_cursor(0)[1] / vim.api.nvim_buf_line_count(0) * 100)
+            local position =
+                math.floor(vim.api.nvim_win_get_cursor(0)[1] / vim.api.nvim_buf_line_count(0) * 100)
             local fg
             local style
 
@@ -418,7 +446,7 @@ function config.feline()
 end
 
 function config.bufferline()
-    require("bufferline").setup {
+    require("bufferline").setup({
         options = {
             mode = "buffers",
             numbers = "ordinal",
@@ -432,10 +460,10 @@ function config.bufferline()
             hover = {
                 enabled = true,
                 delay = 200,
-                reveal = { 'close' }
-            }
-        }
-    }
+                reveal = { "close" },
+            },
+        },
+    })
 end
 
 function config.noice()
@@ -449,11 +477,11 @@ function config.noice()
             },
         },
         presets = {
-            bottom_search = true,         -- use a classic bottom cmdline for search
-            command_palette = true,       -- position the cmdline and popupmenu together
+            bottom_search = true, -- use a classic bottom cmdline for search
+            command_palette = true, -- position the cmdline and popupmenu together
             long_message_to_split = true, -- long messages will be sent to a split
-            inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-            lsp_doc_border = false,       -- add a border to hover docs and signature help
+            inc_rename = false, -- enables an input dialog for inc-rename.nvim
+            lsp_doc_border = false, -- add a border to hover docs and signature help
         },
         views = {
             cmdline_popupmenu = {
@@ -467,7 +495,7 @@ function config.noice()
                         NormalFloat = "NoicePopupmenu",
                         FloatBorder = "NoicePopupmenuBorder",
                         PmenuSel = "NoicePopupmenuSelected",
-                    }
+                    },
                 },
                 scrollbar = false,
             },
@@ -475,9 +503,9 @@ function config.noice()
         routes = {
             {
                 view = "mini",
-                filter = { event = "msg_showmode" }
-            }
-        }
+                filter = { event = "msg_showmode" },
+            },
+        },
     })
 end
 

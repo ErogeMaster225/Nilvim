@@ -17,7 +17,7 @@ return {
         event = "BufRead",
         build = ":TSUpdate",
         config = config.treesitter,
-        dependencies = "nvim-treesitter/nvim-treesitter-textobjects"
+        dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
     },
     {
         "neovim/nvim-lspconfig",
@@ -25,18 +25,27 @@ return {
         config = config.lspconfig,
         dependencies = {
             "nvimtools/none-ls.nvim",
-        }
+        },
+    },
+    {
+        "nvimdev/lspsaga.nvim",
+        event = "LspAttach",
+        opts = {
+            outline = {
+                layout = "float",
+            },
+        },
     },
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
         config = config.mason,
-        dependencies = "nvim-telescope/telescope.nvim"
+        dependencies = "nvim-telescope/telescope.nvim",
     },
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
-        config = config.mason_tool_installer
+        config = config.mason_tool_installer,
     },
     {
         "folke/trouble.nvim",
@@ -45,21 +54,21 @@ return {
         end,
         cmd = { "TroubleToggle", "Trouble" },
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {}
+        opts = {},
     },
     {
         "nvimtools/none-ls.nvim",
         config = config.none_ls,
         dependencies = {
             "nvimtools/none-ls-extras.nvim",
-        }
+        },
     },
     {
-        'stevearc/conform.nvim',
+        "stevearc/conform.nvim",
         config = config.conform,
     },
     {
-        'mfussenegger/nvim-lint',
+        "mfussenegger/nvim-lint",
         config = config.lint,
     },
     {

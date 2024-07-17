@@ -12,23 +12,23 @@ return {
         opts = {},
         cmd = "Telescope",
         init = function()
-            require('core.helper').load_keymap('telescope')
+            require("core.helper").load_keymap("telescope")
         end,
         config = config.telescope,
         dependencies = {
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-fzy-native.nvim",
-            "nvim-telescope/telescope-ui-select.nvim"
-        }
+            "nvim-telescope/telescope-ui-select.nvim",
+        },
     },
     {
         "kevinhwang91/nvim-ufo",
         lazy = false,
         dependencies = "kevinhwang91/promise-async",
         config = function()
-            require('ufo').setup()
+            require("ufo").setup()
             require("core.helper").load_keymap("ufo")
-        end
+        end,
     },
     {
         "karb94/neoscroll.nvim",
@@ -39,66 +39,76 @@ return {
         "numToStr/Comment.nvim",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
-            require('Comment').setup {}
-        end
+            require("Comment").setup({})
+        end,
     },
     {
         "folke/flash.nvim",
         event = "VeryLazy",
         opts = {},
         keys = {
-            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            {
+                "s",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").jump()
+                end,
+                desc = "Flash",
+            },
             {
                 "S",
                 mode = { "n", "x", "o" },
-                function() require("flash").treesitter() end,
-                desc =
-                "Flash Treesitter"
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter",
             },
             {
                 "r",
                 mode = "o",
-                function() require("flash").remote() end,
-                desc =
-                "Remote Flash"
+                function()
+                    require("flash").remote()
+                end,
+                desc = "Remote Flash",
             },
             {
                 "R",
                 mode = { "o", "x" },
-                function() require("flash").treesitter_search() end,
-                desc =
-                "Treesitter Search"
+                function()
+                    require("flash").treesitter_search()
+                end,
+                desc = "Treesitter Search",
             },
             {
                 "<c-s>",
                 mode = { "c" },
-                function() require("flash").toggle() end,
-                desc =
-                "Toggle Flash Search"
+                function()
+                    require("flash").toggle()
+                end,
+                desc = "Toggle Flash Search",
             },
         },
     },
     {
-        'akinsho/toggleterm.nvim',
+        "akinsho/toggleterm.nvim",
         version = "*",
         init = function()
-            require('core.helper').load_keymap('toggleterm')
+            require("core.helper").load_keymap("toggleterm")
         end,
 
         cmd = "ToggleTerm",
-        config = config.toggleterm
+        config = config.toggleterm,
     },
     {
-        'Darazaki/indent-o-matic',
+        "Darazaki/indent-o-matic",
         event = "VeryLazy",
         config = function()
-            require('indent-o-matic').setup {
+            require("indent-o-matic").setup({
                 max_lines = 2048,
                 standard_widths = { 2, 4, 8 },
                 skip_multiline = true,
-            }
-        end
-
+            })
+        end,
     },
     {
         "zbirenbaum/copilot.lua",
@@ -111,7 +121,7 @@ return {
     {
         "echasnovski/mini.nvim",
         event = "VeryLazy",
-        config = config.mini
+        config = config.mini,
     },
     {
         "toppair/peek.nvim",
@@ -119,7 +129,7 @@ return {
         build = "deno task --quiet build:fast",
         config = function()
             require("peek").setup({
-                app = 'broz'
+                app = "broz",
             })
             -- refer to `configuration to change defaults`
             vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
@@ -130,29 +140,29 @@ return {
         "nvim-tree/nvim-tree.lua",
         version = "*",
         init = function()
-            require('core.helper').load_keymap('tree')
+            require("core.helper").load_keymap("tree")
         end,
         lazy = false,
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        config = config.tree
+        config = config.tree,
     },
     {
-        'ldelossa/nvim-ide',
+        "ldelossa/nvim-ide",
         -- event = "VeryLazy",
         lazy = true,
         config = function()
-            require('ide').setup {}
-        end
+            require("ide").setup({})
+        end,
     },
     {
-        'sindrets/diffview.nvim',
+        "sindrets/diffview.nvim",
         lazy = false,
         config = function()
-            require('diffview').setup {
+            require("diffview").setup({
                 enhanced_diff_hl = true,
-            }
-        end
-    }
+            })
+        end,
+    },
 }

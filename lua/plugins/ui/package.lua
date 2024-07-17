@@ -2,7 +2,7 @@ local config = require("plugins.ui.config")
 return {
     "nvim-tree/nvim-web-devicons",
     {
-        'akinsho/bufferline.nvim',
+        "akinsho/bufferline.nvim",
         version = "*",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
@@ -10,33 +10,33 @@ return {
                 "tiagovla/scope.nvim",
                 config = function()
                     require("scope").setup()
-                end
-            }
+                end,
+            },
         },
         event = "UIEnter",
-        config = config.bufferline
+        config = config.bufferline,
     },
     {
         "AlexvZyl/nordic.nvim",
         lazy = false,
         priority = 1000,
-        config = config.nordic
+        config = config.nordic,
     },
     {
         "lewis6991/gitsigns.nvim",
         event = "BufRead",
-        config = config.gitsigns
+        config = config.gitsigns,
     },
     {
         "freddiehaddad/feline.nvim",
         event = "UIEnter",
-        config = config.feline
+        config = config.feline,
     },
     {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufRead",
         config = config.indent_blankline,
-        dependencies = "HiPhish/rainbow-delimiters.nvim"
+        dependencies = "HiPhish/rainbow-delimiters.nvim",
     },
     {
         "folke/noice.nvim",
@@ -46,9 +46,9 @@ return {
             "MunifTanjim/nui.nvim",
             {
                 "rcarriga/nvim-notify",
-                config = config.notify
-            }
-        }
+                config = config.notify,
+            },
+        },
     },
     {
         "folke/twilight.nvim",
@@ -59,20 +59,20 @@ return {
                 "method",
                 "table",
                 "if_statement",
-                "field"
+                "field",
             },
-        }
+        },
     },
     {
         "folke/zen-mode.nvim",
         event = "VeryLazy",
-        opts = {}
+        opts = {},
     },
     {
-        'stevearc/oil.nvim',
+        "stevearc/oil.nvim",
         event = "VeryLazy",
         opts = {},
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
-    }
+    },
 }

@@ -36,12 +36,12 @@ keymap.general = {
         ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up" },
         ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down" }, ]]
         -- d is for delete
-        ["x"] = { "\"_x", desc = "Delete character" },
-        ["X"] = { "\"_X", desc = "Delete character before" },
-        ["d"] = { "\"_d", desc = "Delete with motion" },
-        ["D"] = { "\"_D", desc = "Delete till end of line" },
-        ["<leader>d"] = { "\"*d", desc = "Cut with motion" },
-        ["<leader>D"] = { "\"*D", desc = "Cut till end of line" },
+        ["x"] = { '"_x', desc = "Delete character" },
+        ["X"] = { '"_X', desc = "Delete character before" },
+        ["d"] = { '"_d', desc = "Delete with motion" },
+        ["D"] = { '"_D', desc = "Delete till end of line" },
+        ["<leader>d"] = { '"*d', desc = "Cut with motion" },
+        ["<leader>D"] = { '"*D', desc = "Cut till end of line" },
     },
     i = {
         -- navigate within insert mode
@@ -58,74 +58,89 @@ keymap.general = {
         -- move multiple lines in visual mode
         ["<a-j>"] = {
             function()
-                local line = math.max(vim.fn.line "v", vim.fn.line ".") + vim.v.count1
-                line = math.min(line, vim.fn.line "$")
+                local line = math.max(vim.fn.line("v"), vim.fn.line(".")) + vim.v.count1
+                line = math.min(line, vim.fn.line("$"))
                 return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
             end,
             desc = "Move multiple lines down",
-            opts = { expr = true }
+            opts = { expr = true },
         },
 
         ["<a-k>"] = {
             function()
-                local line = math.min(vim.fn.line "v", vim.fn.line ".") - vim.v.count1
+                local line = math.min(vim.fn.line("v"), vim.fn.line(".")) - vim.v.count1
                 line = math.max(line - 1, 0)
                 return "<esc><cmd>'<,'>move" .. line .. "<cr>gv"
             end,
             desc = "Move multiple lines up",
-            opts = { expr = true }
+            opts = { expr = true },
         },
     },
     v = {
-        ["d"] = { "\"_d", desc = "Delete selected" },
-        ["<leader>d"] = { "\"*d", desc = "Cut selected" }
-    }
+        ["d"] = { '"_d', desc = "Delete selected" },
+        ["<leader>d"] = { '"*d', desc = "Cut selected" },
+    },
 }
 keymap.gitsigns = {
     n = {
-        ['<leader>hs'] = { require("gitsigns").stage_hunk, desc = "Stage hunk" },
-        ['<leader>hr'] = { require("gitsigns").reset_hunk, desc = "Reset hunk" },
-        ['<leader>hS'] = { require("gitsigns").stage_buffer, desc = "Stage buffer" },
-        ['<leader>hu'] = { require("gitsigns").undo_stage_hunk, desc = "Undo stage hunk" },
-        ['<leader>hR'] = { require("gitsigns").reset_buffer, desc = "Reset buffer" },
-        ['<leader>hp'] = { require("gitsigns").preview_hunk, desc = "Preview hunk" },
-        ['<leader>hb'] = {
-            function() require("gitsigns").blame_line { full = true } end,
-            desc = "Show git blame in float window"
-        },
-        ['<leader>hd'] = { require("gitsigns").diffthis, desc = "Diff this" },
-        ['<leader>hD'] = { function() require("gitsigns").diffthis('~1') end, desc = "Diff with last commit" },
-        ['<leader>td'] = { require("gitsigns").toggle_deleted, desc = "Toggle deleted" },
-        [']c'] = {
+        ["<leader>hs"] = { require("gitsigns").stage_hunk, desc = "Stage hunk" },
+        ["<leader>hr"] = { require("gitsigns").reset_hunk, desc = "Reset hunk" },
+        ["<leader>hS"] = { require("gitsigns").stage_buffer, desc = "Stage buffer" },
+        ["<leader>hu"] = { require("gitsigns").undo_stage_hunk, desc = "Undo stage hunk" },
+        ["<leader>hR"] = { require("gitsigns").reset_buffer, desc = "Reset buffer" },
+        ["<leader>hp"] = { require("gitsigns").preview_hunk, desc = "Preview hunk" },
+        ["<leader>hb"] = {
             function()
-                if vim.wo.diff then return ']c' end
-                vim.schedule(function() require("gitsigns").next_hunk() end)
-                return '<Ignore>'
+                require("gitsigns").blame_line({ full = true })
+            end,
+            desc = "Show git blame in float window",
+        },
+        ["<leader>hd"] = { require("gitsigns").diffthis, desc = "Diff this" },
+        ["<leader>hD"] = {
+            function()
+                require("gitsigns").diffthis("~1")
+            end,
+            desc = "Diff with last commit",
+        },
+        ["<leader>td"] = { require("gitsigns").toggle_deleted, desc = "Toggle deleted" },
+        ["]c"] = {
+            function()
+                if vim.wo.diff then return "]c" end
+                vim.schedule(function()
+                    require("gitsigns").next_hunk()
+                end)
+                return "<Ignore>"
             end,
             desc = "Jump to next hunk",
-            opts = { expr = true }
+            opts = { expr = true },
         },
 
-        ['[c'] = {
+        ["[c"] = {
             function()
-                if vim.wo.diff then return '[c' end
-                vim.schedule(function() require("gitsigns").prev_hunk() end)
-                return '<Ignore>'
+                if vim.wo.diff then return "[c" end
+                vim.schedule(function()
+                    require("gitsigns").prev_hunk()
+                end)
+                return "<Ignore>"
             end,
             desc = "Jump to previous hunk",
-            opts = { expr = true }
-        }
+            opts = { expr = true },
+        },
     },
     v = {
-        ['<leader>hr'] = {
-            function() require("gitsigns").reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
-            desc = "Reset selected hunk"
+        ["<leader>hr"] = {
+            function()
+                require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end,
+            desc = "Reset selected hunk",
         },
-        ['<leader>hs'] = {
-            function() require("gitsigns").stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
-            desc = "Stage selected hunk"
+        ["<leader>hs"] = {
+            function()
+                require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end,
+            desc = "Stage selected hunk",
         },
-    }
+    },
 }
 keymap.lspconfig = {
     -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
@@ -138,14 +153,14 @@ keymap.lspconfig = {
                     table.insert(clients, name)
                 end
                 vim.ui.select(clients, {
-                    prompt = 'Choose a formatter:'
+                    prompt = "Choose a formatter:",
                 }, function(choice)
-                    vim.lsp.buf.format {
+                    vim.lsp.buf.format({
                         filter = function(client)
                             return client.name == choice
                         end,
-                        async = true
-                    }
+                        async = true,
+                    })
                 end)
             end,
             desc = "LSP format",
@@ -209,21 +224,21 @@ keymap.lspconfig = {
 
         ["<leader>fd"] = {
             function()
-                vim.diagnostic.open_float { border = "rounded" }
+                vim.diagnostic.open_float({ border = "rounded" })
             end,
             desc = "Floating diagnostic",
         },
 
         ["[d"] = {
             function()
-                vim.diagnostic.goto_prev { float = { border = "rounded" } }
+                vim.diagnostic.goto_prev({ float = { border = "rounded" } })
             end,
             desc = "Goto prev",
         },
 
         ["]d"] = {
             function()
-                vim.diagnostic.goto_next { float = { border = "rounded" } }
+                vim.diagnostic.goto_next({ float = { border = "rounded" } })
             end,
             desc = "Goto next",
         },
@@ -273,7 +288,7 @@ keymap.telescope = {
         ["<leader>b"] = { "<cmd>Telescope buffers<CR>", desc = "Telescope buffer search" },
         ["<leader>p"] = { "<cmd>Telescope frecency<CR>", desc = "Telescope frecency search" },
         ["<leader>F"] = { "<cmd>Telescope live_grep<CR>", desc = "Telescope grep" },
-    }
+    },
 }
 
 keymap.toggleterm = {
@@ -282,20 +297,20 @@ keymap.toggleterm = {
             function()
                 vim.cmd(":ToggleTerm " .. (vim.v.count > 0 and vim.v.count or ""))
             end,
-            desc = "Toggle terminal"
-        }
-    }
+            desc = "Toggle terminal",
+        },
+    },
 }
 
 keymap.trouble = {
     n = {
-        ["<leader>tb"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" }
-    }
+        ["<leader>tb"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" },
+    },
 }
 keymap.tree = {
     n = {
-        ["<F5>"] = { "<cmd>NvimTreeToggle<CR>", desc = "Open file browser" }
-    }
+        ["<F5>"] = { "<cmd>NvimTreeToggle<CR>", desc = "Open file browser" },
+    },
 }
 keymap.ufo = {
     n = {
@@ -303,15 +318,14 @@ keymap.ufo = {
             function()
                 require("ufo").openAllFolds()
             end,
-            desc = "Open all folds"
+            desc = "Open all folds",
         },
         ["zM"] = {
             function()
                 require("ufo").closeAllFolds()
             end,
-            desc = "Close all folds"
-        }
-
-    }
+            desc = "Close all folds",
+        },
+    },
 }
 return keymap

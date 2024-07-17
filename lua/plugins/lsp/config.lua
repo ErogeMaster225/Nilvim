@@ -7,7 +7,7 @@ function config.mason()
                 package_pending = " ",
                 package_installed = " ",
                 package_uninstalled = " ﮊ",
-            }
+            },
         },
 
         max_concurrent_installers = 10,
@@ -15,89 +15,87 @@ function config.mason()
 end
 
 function config.mason_tool_installer()
-    require('mason-tool-installer').setup {
+    require("mason-tool-installer").setup({
         ensure_installed = {
-            'css-lsp',
-            'emmet-language-server',
-            'eslint-lsp',
-            'eslint_d',
-            'html-lsp',
-            'json-lsp',
-            'lua-language-server',
-            'prettier',
-            'prettierd',
-            'svelte-language-server',
-            'typescript-language-server',
-            'vue-language-server',
-        }
-    }
+            "css-lsp",
+            "emmet-language-server",
+            "eslint-lsp",
+            "eslint_d",
+            "html-lsp",
+            "json-lsp",
+            "lua-language-server",
+            "prettier",
+            "prettierd",
+            "svelte-language-server",
+            "typescript-language-server",
+            "vue-language-server",
+        },
+    })
 end
 
 function config.treesitter()
-    require('nvim-treesitter.configs').setup({
+    require("nvim-treesitter.configs").setup({
         ensure_installed = {
-            'astro',
-            'bash',
-            'css',
-            'csv',
-            'diff',
-            'go',
-            'gomod',
-            'gosum',
-            'gowork',
-            'html',
-            'javascript',
-            'jsdoc',
-            'json',
-            'jsonc',
-            'lua',
-            'markdown',
-            'markdown_inline',
-            'python',
-            'regex',
-            'rust',
-            'scss',
-            'tsx',
-            'typescript',
-            'sql',
-            'svelte',
-            'vue',
-            'zig',
+            "astro",
+            "bash",
+            "css",
+            "csv",
+            "diff",
+            "go",
+            "gomod",
+            "gosum",
+            "gowork",
+            "html",
+            "javascript",
+            "jsdoc",
+            "json",
+            "jsonc",
+            "lua",
+            "markdown",
+            "markdown_inline",
+            "python",
+            "regex",
+            "rust",
+            "scss",
+            "tsx",
+            "typescript",
+            "sql",
+            "svelte",
+            "vue",
+            "zig",
         },
         highlight = {
             enable = true,
             disable = function(lang, buf)
-                if vim.api.nvim_buf_line_count(buf) > 5000 then
-                    return true
-                end
+                if vim.api.nvim_buf_line_count(buf) > 5000 then return true end
             end,
         },
         textobjects = {
             select = {
                 enable = true,
                 keymaps = {
-                    ['af'] = '@function.outer',
-                    ['if'] = '@function.inner',
-                    ['ac'] = '@class.outer',
-                    ['ic'] = '@class.inner',
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
                 },
             },
         },
     })
 
     --set indent for jsx tsx
-    vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'javascriptreact', 'typescriptreact' },
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "javascriptreact", "typescriptreact" },
         callback = function(opt)
-            vim.bo[opt.buf].indentexpr = 'nvim_treesitter#indent()'
+            vim.bo[opt.buf].indentexpr = "nvim_treesitter#indent()"
         end,
     })
 end
 
 function config.lspconfig()
-    local lspconfig = require('lspconfig')
+    local lspconfig = require("lspconfig")
     local on_attach = function(client, bufnr)
-        if client.name ~= 'lua_ls' then
+        if client.name ~= "lua_ls" then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end
@@ -106,13 +104,13 @@ function config.lspconfig()
             require("erogemaster225.signature").setup(client)
         end ]]
     end
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
     capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
     }
 
-    lspconfig.lua_ls.setup {
+    lspconfig.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -122,7 +120,7 @@ function config.lspconfig()
                     defaultConfig = {
                         indent_style = "space",
                         indent_size = 2,
-                    }
+                    },
                 },
                 workspace = {
                     checkThirdParty = false,
@@ -133,36 +131,46 @@ function config.lspconfig()
                 diagnostics = {
                     disable = {
                         "undefined-global",
-                        "missing-fields"
-                    }
-                }
+                        "missing-fields",
+                    },
+                },
             },
         },
-    }
-    lspconfig.emmet_language_server.setup {
+    })
+    lspconfig.emmet_language_server.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-    }
-    lspconfig.svelte.setup {
+    })
+    lspconfig.svelte.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-    }
-    require('typescript-tools').setup {
+    })
+    require("typescript-tools").setup({
         on_attach = on_attach,
         capabilities = capabilities,
-    }
+    })
 end
 
 function config.none_ls()
     local null_ls = require("null-ls")
     local b = null_ls.builtins
     local sources = {
-        b.formatting.prettierd.with {
-            filetypes = { "html", "markdown", "css", "svelte", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        },
+        b.formatting.prettierd.with({
+            filetypes = {
+                "html",
+                "markdown",
+                "css",
+                "svelte",
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+            },
+        }),
+        b.formatting.stylua,
         require("none-ls.code_actions.eslint_d"),
         require("none-ls.formatting.eslint_d"),
-        require("none-ls.diagnostics.eslint_d")
+        require("none-ls.diagnostics.eslint_d"),
     }
     null_ls.setup({
         sources = sources,
@@ -170,7 +178,7 @@ function config.none_ls()
 end
 
 function config.lint()
-    local lint = require('lint')
+    local lint = require("lint")
     lint.linters_by_ft = {
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
@@ -185,7 +193,7 @@ function config.lint()
 end
 
 function config.conform()
-    local conform = require('conform')
+    local conform = require("conform")
     conform.setup({
         formatters_by_ft = {
             javascript = { "eslint_d" },
