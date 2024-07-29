@@ -75,4 +75,29 @@ return {
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
+    {
+        "stevearc/aerial.nvim",
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+    },
+    {
+        "folke/edgy.nvim",
+        event = "VeryLazy",
+        keys = {
+            {
+                "<leader>ue",
+                function()
+                    require("edgy").toggle()
+                end,
+                desc = "Edgy Toggle",
+            },
+            -- stylua: ignore
+            { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
+        },
+        config = config.edgy,
+    },
 }
