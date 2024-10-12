@@ -13,6 +13,7 @@ function config.telescope()
                 "--column",
                 "--smart-case",
                 "--trim",
+                "--fixed-strings"
             },
             prompt_prefix = "   ",
             selection_caret = "  ",
@@ -89,9 +90,8 @@ end
 
 function config.which_key()
     require("which-key").setup({
-        window = {
+        win = {
             border = { "", "▔", "", "", "", " ", "", "" },
-            margin = { 0, 0, 1, 0 },
             padding = { 0, 0, 0, 0 },
         },
     })
@@ -109,8 +109,8 @@ end
 
 function config.tree()
     local function root_label(path)
-        path = path:gsub("/home/alex", " ")
-        path = path:gsub("/Users/alex", " ")
+        path = path:gsub("/home/sakurafrost225", "")
+        path = path:gsub("/Users/sakurafrost225", " ")
         path = path .. "/"
         local path_len = path:len()
         local win_nr = require("nvim-tree.view").get_winnr()
@@ -219,6 +219,38 @@ function config.tree()
     -- 	vim.cmd [[setlocal fillchars+=horizup:🮇]]
     -- 	vim.cmd [[setlocal fillchars+=vertright:🮇]]
     -- end)
+end
+
+function config.neotree()
+    require("neo-tree").setup({
+        hide_root_node = true,
+        retain_hidden_root_indent = true,
+        filesystem = {
+            filtered_items = {
+                show_hidden_count = false,
+                hide_dotfiles = false,
+                never_show = {
+                    '.DS_Store',
+                },
+            },
+        },
+        default_component_configs = {
+            indent = {
+                with_expanders = true,
+                expander_collapsed = '',
+                expander_expanded = '',
+            },
+        },
+        window = {
+            mappings = {
+                ["<space>"] = {
+                    "toggle_node",
+                    nowait = true, -- disable `nowait` if you have existing combos starting with this char that you want to use
+                },
+            }
+        },
+        nesting_rules = require('neotree-file-nesting-config').nesting_rules,
+    })
 end
 
 return config

@@ -7,69 +7,68 @@ function config.nordic()
         cursorline = {
             bold = true,
         },
-        override = {
-            TelescopePromptNormal = {
+        on_highlight = function(highlights, palette)
+            highlights.TelescopePromptNormal = {
                 bg = palette.black0,
-            },
-            TelescopePromptBorder = {
+            }
+            highlights.TelescopePromptBorder = {
                 bg = palette.black0,
                 fg = palette.black0,
-            },
-            TelescopePromptPrefix = {
+            }
+            highlights.TelescopePromptPrefix = {
                 bg = palette.black0,
-            },
-            TelescopeResultsBorder = {
+            }
+            highlights.TelescopeResultsBorder = {
                 bg = palette.black1,
                 fg = palette.black1,
-            },
-            TelescopeResultsTitle = {
+            }
+            highlights.TelescopeResultsTitle = {
                 bg = palette.green.base,
-            },
-            TelescopeResultsNormal = {
+            }
+            highlights.TelescopeResultsNormal = {
                 bg = palette.black1,
-            },
-            TelescopePreviewBorder = {
+            }
+            highlights.TelescopePreviewBorder = {
                 bg = palette.black1,
                 fg = palette.black1,
-            },
-            TelescopePreviewNormal = {
+            }
+            highlights.TelescopePreviewNormal = {
                 bg = palette.black1,
-            },
-
-            NoiceCmdlinePopupTitle = {
+            }
+            highlights.NoiceCmdlinePopupTitle = {
                 bg = palette.blue2,
                 fg = palette.black0,
-            },
-            NoicePopupBorder = {
+            }
+            highlights.NoicePopupBorder = {
                 bg = palette.black1,
                 fg = palette.black1,
-            },
-            NoicePopupmenu = {
+            }
+            highlights.NoicePopupmenu = {
                 bg = palette.black0,
-            },
-            NoicePopupmenuBorder = {
+            }
+            highlights.NoicePopupmenuBorder = {
                 bg = palette.black0,
-            },
-            NoiceScrollbar = {
+            }
+            highlights.NoiceScrollbar = {
                 bg = palette.black0,
-            },
-            NoicePopupmenuSelected = {
+            }
+            highlights.NoicePopupmenuSelected = {
                 fg = palette.yellow.base,
                 bg = palette.gray0,
-            },
-            DiagnosticUnderlineError = {
+            }
+            highlights.DiagnosticUnderlineError = {
                 undercurl = false,
-            },
-            DiagnosticUnderlineWarn = {
+            }
+            highlights.DiagnosticUnderlineWarn = {
                 undercurl = false,
-            },
-            DiagnosticUnderlineInfo = {
+            }
+            highlights.DiagnosticUnderlineInfo = {
                 undercurl = false,
-            },
-            DiagnosticUnderlineHint = {
+            }
+            highlights.DiagnosticUnderlineHint = {
                 undercurl = false,
-            },
-        },
+            }
+        end,
     })
     nordic.load()
 end

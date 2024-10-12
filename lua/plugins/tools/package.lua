@@ -139,14 +139,26 @@ return {
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
-        init = function()
-            require("core.helper").load_keymap("tree")
-        end,
         lazy = false,
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
         config = config.tree,
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        init = function()
+            require("core.helper").load_keymap("tree")
+        end,
+        lazy = false,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            'saifulapm/neotree-file-nesting-config'
+        },
+        config = config.neotree,
     },
     {
         "ldelossa/nvim-ide",

@@ -309,7 +309,7 @@ keymap.trouble = {
 }
 keymap.tree = {
     n = {
-        ["<F5>"] = { "<cmd>NvimTreeToggle<CR>", desc = "Open file browser" },
+        ["<F5>"] = { "<cmd>Neotree toggle<CR>", desc = "Open file browser" },
     },
 }
 keymap.ufo = {

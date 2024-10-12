@@ -1,7 +1,8 @@
 local config = require("plugins.completion.config")
 return {
     {
-        "hrsh7th/nvim-cmp",
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp",
         event = "InsertEnter",
         dependencies = {
             {
