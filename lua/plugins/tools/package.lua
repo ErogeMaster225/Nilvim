@@ -149,6 +149,18 @@ return {
         config = config.tree,
     },
     {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        lazy = false,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            'saifulapm/neotree-file-nesting-config'
+        },
+        config = config.neotree,
+    },
+    {
         "ldelossa/nvim-ide",
         -- event = "VeryLazy",
         lazy = true,
