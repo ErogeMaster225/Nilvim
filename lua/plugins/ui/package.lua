@@ -17,6 +17,13 @@ return {
         config = config.bufferline,
     },
     {
+        "NvChad/base46",
+        lazy = true,
+        build = function()
+            require("base46").load_all_highlights()
+        end,
+    },
+    {
         "AlexvZyl/nordic.nvim",
         lazy = false,
         priority = 1000,
