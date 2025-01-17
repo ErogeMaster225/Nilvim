@@ -137,15 +137,6 @@ return {
         end,
     },
     {
-        "nvim-tree/nvim-tree.lua",
-        version = "*",
-        lazy = false,
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = config.tree,
-    },
-    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         init = function()
@@ -156,7 +147,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            'saifulapm/neotree-file-nesting-config'
+            "saifulapm/neotree-file-nesting-config",
         },
         config = config.neotree,
     },
