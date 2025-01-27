@@ -543,13 +543,6 @@ function config.noice()
     })
 end
 
-function config.notify()
-    vim.notify = require("notify")
-    vim.notify.setup({
-        fps = 60,
-    })
-end
-
 function config.edgy()
     require("edgy").setup({
         animate = {

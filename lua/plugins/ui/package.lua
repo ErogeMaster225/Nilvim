@@ -42,13 +42,6 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         config = config.noice,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            {
-                "rcarriga/nvim-notify",
-                config = config.notify,
-            },
-        },
     },
     {
         "folke/twilight.nvim",
@@ -62,11 +55,6 @@ return {
                 "field",
             },
         },
-    },
-    {
-        "folke/zen-mode.nvim",
-        event = "VeryLazy",
-        opts = {},
     },
     {
         "stevearc/oil.nvim",

@@ -42,6 +42,47 @@ return {
             require("Comment").setup({})
         end,
     },
+    { "nvzone/showkeys", cmd = "ShowkeysToggle" },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+            bigfile = { enabled = true },
+            dashboard = { enabled = true },
+            dim = { enabled = true },
+            indent = { enabled = true },
+            input = { enabled = true },
+            picker = { enabled = true },
+            notifier = { enabled = true },
+            quickfile = { enabled = true },
+            scroll = { enabled = true },
+            statuscolumn = { enabled = true },
+            words = { enabled = true },
+        },
+        init = function()
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "VeryLazy",
+                callback = function()
+                    -- stylua: ignore start
+                    Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
+                    Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+                    Snacks.toggle.option("cursorline", { name = "Cursorline" }):map("<leader>uC")
+                    Snacks.toggle.diagnostics():map("<leader>ud")
+                    Snacks.toggle.option("conceallevel",
+                        { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
+                    Snacks.toggle.inlay_hints():map("<leader>uh")
+                    Snacks.toggle.dim():map("<leader>uD")
+                    -- stylua: ignore end
+                end,
+            })
+            require("core.helper").load_keymap("snacks")
+        end,
+    },
     {
         "folke/flash.nvim",
         event = "VeryLazy",
