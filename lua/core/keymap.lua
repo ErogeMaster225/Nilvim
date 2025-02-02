@@ -15,8 +15,8 @@ keymap.general = {
         ["<A-j>"] = { ":m .+1<CR>==", desc = "Move current line down" },
         ["<A-k>"] = { ":m .-2<CR>==", desc = "Move current line up" },
         -- buffer jump
-        ["<leader>["] = { "<cmd> bp <CR>", desc = "Jump to next buffer" },
-        ["<leader>]"] = { "<cmd> bn <CR>", desc = "Jump to previous buffer" },
+        ["<leader>["] = { "<cmd> bp <CR>", desc = "Jump to previous buffer" },
+        ["<leader>]"] = { "<cmd> bn <CR>", desc = "Jump to next buffer" },
         -- save
         ["<C-s>"] = { "<cmd> w <CR>", desc = "Save file" },
         -- Select all
