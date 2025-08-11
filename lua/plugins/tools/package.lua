@@ -31,11 +31,6 @@ return {
         end,
     },
     {
-        "karb94/neoscroll.nvim",
-        -- event = { "BufReadPre", "BufNewFile" },
-        config = config.neoscroll,
-    },
-    {
         "numToStr/Comment.nvim",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
@@ -60,7 +55,15 @@ return {
             picker = { enabled = true },
             notifier = { enabled = true },
             quickfile = { enabled = true },
-            scroll = { enabled = true },
+            scroll = {
+                enabled = true,
+                animate = {
+                    duration = {
+                        step = 15, total = 500
+                    },
+                    easing = "outCirc"
+                }
+            },
             statuscolumn = { enabled = true },
             words = { enabled = true },
         },
