@@ -28,7 +28,7 @@ return {
         config = config.gitsigns,
     },
     {
-        "freddiehaddad/feline.nvim",
+        "adpce/feline.nvim",
         event = "UIEnter",
         config = config.feline,
     },
