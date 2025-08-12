@@ -173,9 +173,9 @@ keymap.lspconfig = {
             desc = "LSP declaration",
         },
 
-        ["gd"] = {
+        ["grd"] = {
             function()
-                vim.lsp.buf.definition()
+                require("telescope.builtin").lsp_definitions()
             end,
             desc = "LSP definition",
         },
@@ -187,9 +187,9 @@ keymap.lspconfig = {
             desc = "LSP hover",
         },
 
-        ["gi"] = {
+        ["gri"] = {
             function()
-                vim.lsp.buf.implementation()
+                require("telescope.builtin").lsp_implementations()
             end,
             desc = "LSP implementation",
         },
@@ -201,9 +201,9 @@ keymap.lspconfig = {
             desc = "LSP signature help",
         },
 
-        ["<leader>D"] = {
+        ["grt"] = {
             function()
-                vim.lsp.buf.type_definition()
+                require("telescope.builtin").lsp_type_definitions()
             end,
             desc = "LSP definition type",
         },
@@ -215,9 +215,9 @@ keymap.lspconfig = {
             desc = "LSP code action",
         },
 
-        ["gr"] = {
+        ["grr"] = {
             function()
-                vim.lsp.buf.references()
+                require("telescope.builtin").lsp_references()
             end,
             desc = "LSP references",
         },
