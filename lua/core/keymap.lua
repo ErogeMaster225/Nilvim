@@ -217,7 +217,7 @@ keymap.lspconfig = {
 
         ["gr"] = {
             function()
-                vim.lsp.buf.references()
+                require("telescope.builtin").lsp_references()
             end,
             desc = "LSP references",
         },

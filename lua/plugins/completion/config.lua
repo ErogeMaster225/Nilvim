@@ -128,7 +128,6 @@ function config.cmp()
             { name = "buffer" },
             { name = "nvim_lua" },
             { name = "path" },
-            { name = "supermaven" },
         },
     }
 
