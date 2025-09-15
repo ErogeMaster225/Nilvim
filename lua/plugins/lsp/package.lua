@@ -24,7 +24,7 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         config = config.lspconfig,
         dependencies = {
-            "nvimtools/none-ls.nvim",
+            -- "nvimtools/none-ls.nvim",
         },
     },
     {

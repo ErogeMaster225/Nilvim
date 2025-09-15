@@ -50,7 +50,7 @@ return {
             bigfile = { enabled = true },
             dashboard = { enabled = true },
             dim = { enabled = true },
-            indent = { enabled = true },
+            -- indent = { enabled = true },
             input = { enabled = true },
             picker = { enabled = true },
             notifier = { enabled = true },
@@ -204,4 +204,8 @@ return {
             })
         end,
     },
+    {
+        "olimorris/persisted.nvim",
+        event = "BufReadPre", -- Ensure the plugin loads only when a buffer has been loaded
+    }
 }
