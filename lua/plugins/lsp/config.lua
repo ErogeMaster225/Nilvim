@@ -94,49 +94,36 @@ end
 
 function config.lspconfig()
     local lspconfig = require("lspconfig")
-    local on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd('LspAttach', {
+      callback = function(args)
+        require("core.helper").load_keymap("lspconfig", { buffer = args.buf })
+      end,
+    })
+    --[[local on_attach = function(client, bufnr)
         if client.name ~= "lua_ls" then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end
         require("core.helper").load_keymap("lspconfig", { buffer = bufnr })
-        --[[ if client.server_capabilities.signatureHelpProvider then
+        if client.server_capabilities.signatureHelpProvider then
             require("erogemaster225.signature").setup(client)
-        end ]]
-    end
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        end
+    end ]]
+    -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local caps = vim.lsp.protocol.make_client_capabilities()
+    local capabilities = require("blink.cmp").get_lsp_capabilities(caps)
     capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
     }
+    capabilities.textDocument = {
+        semanticTokens = {
+            multilineTokenSupport = true,
+        }
+    }
+    vim.lsp.config("*", { capabilities = capabilities })
 
-    lspconfig.lua_ls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-            Lua = {
-                format = {
-                    enable = true,
-                    defaultConfig = {
-                        indent_style = "space",
-                        indent_size = 2,
-                    },
-                },
-                workspace = {
-                    checkThirdParty = false,
-                },
-                completion = {
-                    callSnippet = "Replace",
-                },
-                diagnostics = {
-                    disable = {
-                        "undefined-global",
-                        "missing-fields",
-                    },
-                },
-            },
-        },
-    })
+    vim.lsp.enable("lua_ls")
     lspconfig.emmet_language_server.setup({
         on_attach = on_attach,
         capabilities = capabilities,

@@ -36,3 +36,12 @@ end, {
   nargs = "+",
   complete = "lua",
 })
+local telescope = require('telescope.builtin')
+
+-- Define a custom command to search Neovim config folder
+vim.api.nvim_create_user_command('FindConfigFiles', function()
+  telescope.find_files({
+    prompt_title = "< Neovim Config Files >",
+    cwd = vim.fn.stdpath('config')  -- This is the Neovim config folder
+  })
+end, {})
