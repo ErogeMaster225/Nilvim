@@ -110,7 +110,8 @@ function config.lspconfig()
         lineFoldingOnly = true,
     }
 
-    lspconfig.lua_ls.setup({
+    vim.lsp.enable("lua_ls")
+    --[[ lspconfig.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -136,7 +137,7 @@ function config.lspconfig()
                 },
             },
         },
-    })
+    }) ]]
     lspconfig.emmet_language_server.setup({
         on_attach = on_attach,
         capabilities = capabilities,
