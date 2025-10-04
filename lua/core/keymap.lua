@@ -26,7 +26,8 @@ keymap.general = {
         -- Yank till end of line
         ["Y"] = { "y$", desc = "Yank till end of line" },
         -- close buffer
-        ["<leader>q"] = { "<cmd> bd <CR>", desc = "Close buffer" },
+        ["<leader>q"] = { require("snacks.bufdelete").delete, desc = "Close current buffer" },
+        ["<leader>Q"] = { require("snacks.bufdelete").other, desc = "Close other buffer" },
         -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
         -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
         -- empty mode is same as using <cmd> :map

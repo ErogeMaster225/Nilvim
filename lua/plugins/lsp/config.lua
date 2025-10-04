@@ -95,9 +95,9 @@ end
 function config.lspconfig()
     local lspconfig = require("lspconfig")
     vim.api.nvim_create_autocmd('LspAttach', {
-      callback = function(args)
-        require("core.helper").load_keymap("lspconfig", { buffer = args.buf })
-      end,
+        callback = function(args)
+            require("core.helper").load_keymap("lspconfig", { buffer = args.buf })
+        end,
     })
     --[[local on_attach = function(client, bufnr)
         if client.name ~= "lua_ls" then
@@ -109,7 +109,6 @@ function config.lspconfig()
             require("erogemaster225.signature").setup(client)
         end
     end ]]
-    -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local caps = vim.lsp.protocol.make_client_capabilities()
     local capabilities = require("blink.cmp").get_lsp_capabilities(caps)
     capabilities.textDocument.foldingRange = {
@@ -122,20 +121,10 @@ function config.lspconfig()
         }
     }
     vim.lsp.config("*", { capabilities = capabilities })
-
     vim.lsp.enable("lua_ls")
-    lspconfig.emmet_language_server.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-    })
-    lspconfig.svelte.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-    })
-    require("typescript-tools").setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-    })
+    vim.lsp.enable("eslint-lsp")
+    vim.lsp.enable("vtsls")
+    vim.diagnostic.config({ virtual_text = true })
 end
 
 function config.none_ls()
@@ -183,16 +172,16 @@ function config.conform()
     local conform = require("conform")
     conform.setup({
         formatters_by_ft = {
-            javascript = { "eslint_d" },
-            javascriptreact = { "eslint_d" },
-            typescript = { "eslint_d" },
-            typescriptreact = { "eslint_d" },
+            javascript = { "eslint_d", "prettier" },
+            javascriptreact = { "eslint_d", "prettier" },
+            typescript = { "eslint_d", "prettier" },
+            typescriptreact = { "eslint_d", "prettier" },
         },
-        --[[ format_on_save = {
+        format_on_save = {
             -- These options will be passed to conform.format()
             timeout_ms = 5000,
             lsp_fallback = true,
-        }, ]]
+        },
     })
 end
 

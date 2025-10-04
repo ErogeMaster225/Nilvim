@@ -17,8 +17,8 @@ return {
         config = config.telescope,
         dependencies = {
             "nvim-telescope/telescope-file-browser.nvim",
-            "nvim-telescope/telescope-fzy-native.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
         },
     },
     {
@@ -207,5 +207,15 @@ return {
     {
         "olimorris/persisted.nvim",
         event = "BufReadPre", -- Ensure the plugin loads only when a buffer has been loaded
+        opts = {}
+    },
+    {
+        "catgoose/nvim-colorizer.lua",
+        event = "BufReadPre",
+        opts = {},
+    },
+    {
+        'stevearc/overseer.nvim',
+        opts = {},
     }
 }

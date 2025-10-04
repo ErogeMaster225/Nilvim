@@ -30,7 +30,7 @@ return {
     },
     {
         "nvimdev/lspsaga.nvim",
-        event = "LspAttach",
+        -- event = "LspAttach",
         opts = {
             outline = {
                 layout = "float",
@@ -66,14 +66,11 @@ return {
     },
     {
         "stevearc/conform.nvim",
+        event = "LspAttach",
         config = config.conform,
     },
     {
         "mfussenegger/nvim-lint",
         config = config.lint,
-    },
-    {
-        "pmizio/typescript-tools.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     },
 }

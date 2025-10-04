@@ -35,9 +35,7 @@ function config.telescope()
                 height = 0.80,
                 preview_cutoff = 120,
             },
-            file_sorter = require("telescope.sorters").get_fuzzy_file,
             file_ignore_patterns = { "node_modules" },
-            generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
             path_display = { "truncate" },
             winblend = 0,
             border = {},
@@ -55,21 +53,27 @@ function config.telescope()
         },
         pickers = {
             find_files = {
-                find_command = { "rg", "--files", "-uu", "--glob", "!**/.git/*" },
+                find_command = { "rg", "--files", "--hidden", "--path-separator", "/", "--glob", "!**/.git/*" },
             },
         },
         extensions = {
             file_browser = {
                 hijack_netrw = true,
             },
+            fzf = {
+                fuzzy = true,                   -- false will only do exact matching
+                override_generic_sorter = true, -- override the generic sorter
+                override_file_sorter = true,    -- override the file sorter
+                case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+                -- the default case_mode is "smart_case"
+            }
         },
     })
     require("telescope").load_extension("file_browser")
     require("telescope").load_extension("persisted")
-    require("telescope").load_extension("fzy_native")
+    require("telescope").load_extension("fzf")
     require("telescope").load_extension("ui-select")
 end
-
 
 function config.which_key()
     require("which-key").setup({
@@ -102,6 +106,9 @@ function config.neotree()
                     '.DS_Store',
                 },
             },
+            follow_current_file = {
+                enabled = true
+            }
         },
         default_component_configs = {
             indent = {

@@ -88,4 +88,11 @@ return {
         },
         config = config.edgy,
     },
+    {
+  "mskelton/termicons.nvim",
+  event = "VeryLazy",
+  requires = { "nvim-tree/nvim-web-devicons" },
+  build = false,
+  opts = {},
+},
 }
