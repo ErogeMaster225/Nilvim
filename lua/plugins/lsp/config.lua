@@ -94,7 +94,7 @@ end
 
 function config.lspconfig()
     local lspconfig = require("lspconfig")
-    vim.api.nvim_create_autocmd('LspAttach', {
+    vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
             require("core.helper").load_keymap("lspconfig", { buffer = args.buf })
         end,
@@ -118,7 +118,7 @@ function config.lspconfig()
     capabilities.textDocument = {
         semanticTokens = {
             multilineTokenSupport = true,
-        }
+        },
     }
     vim.lsp.config("*", { capabilities = capabilities })
     vim.lsp.enable("lua_ls")

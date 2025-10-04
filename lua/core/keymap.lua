@@ -333,6 +333,6 @@ keymap.snacks = {
     n = {
         ["<leader>zz"] = { require("snacks").zen.zen, desc = "Toggle Zenmode" },
         ["<leader>zm"] = { require("snacks").zen.zoom, desc = "Toggle Zenmode Zoom" },
-    }
+    },
 }
 return keymap

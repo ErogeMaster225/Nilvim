@@ -25,7 +25,7 @@ return {
         config = config.lspconfig,
         dependencies = {
             -- "nvimtools/none-ls.nvim",
-            "saghen/blink.cmp"
+            "saghen/blink.cmp",
         },
     },
     {

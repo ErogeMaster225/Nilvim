@@ -48,6 +48,7 @@ opt.undofile = true
 opt.cmdheight = 1
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 1000
+opt.shell = "pwsh"
 
 -- disable folding on startup
 opt.foldenable = true

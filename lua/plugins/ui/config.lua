@@ -461,9 +461,7 @@ function config.bufferline()
                     end
                 end
                 ret.total_size = ret.left_size + ret.right_size
-                if ret.total_size > 0 then
-                    return ret
-                end
+                if ret.total_size > 0 then return ret end
             end
             return get()
         end
@@ -500,11 +498,11 @@ function config.noice()
             },
         },
         presets = {
-            bottom_search = true,         -- use a classic bottom cmdline for search
-            command_palette = true,       -- position the cmdline and popupmenu together
+            bottom_search = true, -- use a classic bottom cmdline for search
+            command_palette = true, -- position the cmdline and popupmenu together
             long_message_to_split = true, -- long messages will be sent to a split
-            inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-            lsp_doc_border = false,       -- add a border to hover docs and signature help
+            inc_rename = false, -- enables an input dialog for inc-rename.nvim
+            lsp_doc_border = false, -- add a border to hover docs and signature help
         },
         views = {
             cmdline_popupmenu = {
@@ -537,7 +535,7 @@ function config.noice()
                         return client == "null-ls"
                     end,
                 },
-                opts = { skip = true},
+                opts = { skip = true },
             },
         },
     })
@@ -546,51 +544,50 @@ end
 function config.edgy()
     require("edgy").setup({
         animate = {
-            enabled = false
+            enabled = false,
         },
         left = {
             -- Neo-tree filesystem always takes half the screen height
             {
-              title = "Neo-Tree",
-              ft = "neo-tree",
-              filter = function(buf)
-                return vim.b[buf].neo_tree_source == "filesystem"
-              end,
-              size = { height = 0.5 },
+                title = "Neo-Tree",
+                ft = "neo-tree",
+                filter = function(buf)
+                    return vim.b[buf].neo_tree_source == "filesystem"
+                end,
+                size = { height = 0.5 },
             },
             {
-              title = "Neo-Tree Git",
-              ft = "neo-tree",
-              filter = function(buf)
-                return vim.b[buf].neo_tree_source == "git_status"
-              end,
-              pinned = true,
-              collapsed = true, -- show window as closed/collapsed on start
-              open = "Neotree position=right git_status",
+                title = "Neo-Tree Git",
+                ft = "neo-tree",
+                filter = function(buf)
+                    return vim.b[buf].neo_tree_source == "git_status"
+                end,
+                pinned = true,
+                collapsed = true, -- show window as closed/collapsed on start
+                open = "Neotree position=right git_status",
             },
             {
-              title = "Neo-Tree Buffers",
-              ft = "neo-tree",
-              filter = function(buf)
-                return vim.b[buf].neo_tree_source == "buffers"
-              end,
-              pinned = true,
-              collapsed = true, -- show window as closed/collapsed on start
-              open = "Neotree position=top buffers",
+                title = "Neo-Tree Buffers",
+                ft = "neo-tree",
+                filter = function(buf)
+                    return vim.b[buf].neo_tree_source == "buffers"
+                end,
+                pinned = true,
+                collapsed = true, -- show window as closed/collapsed on start
+                open = "Neotree position=top buffers",
             },
             {
-              title = function()
-                local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
-                return vim.fn.fnamemodify(buf_name, ":t")
-              end,
-              ft = "Outline",
-              pinned = true,
-              open = "SymbolsOutlineOpen",
-
+                title = function()
+                    local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
+                    return vim.fn.fnamemodify(buf_name, ":t")
+                end,
+                ft = "Outline",
+                pinned = true,
+                open = "SymbolsOutlineOpen",
             },
             -- any other neo-tree windows
             "neo-tree",
-          },
+        },
     })
 end
 

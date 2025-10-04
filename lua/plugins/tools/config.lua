@@ -13,7 +13,7 @@ function config.telescope()
                 "--column",
                 "--smart-case",
                 "--trim",
-                "--fixed-strings"
+                "--fixed-strings",
             },
             prompt_prefix = "   ",
             selection_caret = "  ",
@@ -53,7 +53,15 @@ function config.telescope()
         },
         pickers = {
             find_files = {
-                find_command = { "rg", "--files", "--hidden", "--path-separator", "/", "--glob", "!**/.git/*" },
+                find_command = {
+                    "rg",
+                    "--files",
+                    "--hidden",
+                    "--path-separator",
+                    "/",
+                    "--glob",
+                    "!**/.git/*",
+                },
             },
         },
         extensions = {
@@ -61,12 +69,12 @@ function config.telescope()
                 hijack_netrw = true,
             },
             fzf = {
-                fuzzy = true,                   -- false will only do exact matching
+                fuzzy = true, -- false will only do exact matching
                 override_generic_sorter = true, -- override the generic sorter
-                override_file_sorter = true,    -- override the file sorter
-                case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+                override_file_sorter = true, -- override the file sorter
+                case_mode = "smart_case", -- or "ignore_case" or "respect_case"
                 -- the default case_mode is "smart_case"
-            }
+            },
         },
     })
     require("telescope").load_extension("file_browser")
@@ -103,18 +111,18 @@ function config.neotree()
                 show_hidden_count = false,
                 hide_dotfiles = false,
                 never_show = {
-                    '.DS_Store',
+                    ".DS_Store",
                 },
             },
             follow_current_file = {
-                enabled = true
-            }
+                enabled = true,
+            },
         },
         default_component_configs = {
             indent = {
                 with_expanders = true,
-                expander_collapsed = '',
-                expander_expanded = '',
+                expander_collapsed = "",
+                expander_expanded = "",
             },
         },
         window = {
@@ -123,9 +131,9 @@ function config.neotree()
                     "toggle_node",
                     nowait = true, -- disable `nowait` if you have existing combos starting with this char that you want to use
                 },
-            }
+            },
         },
-        nesting_rules = require('neotree-file-nesting-config').nesting_rules,
+        nesting_rules = require("neotree-file-nesting-config").nesting_rules,
     })
 end
 

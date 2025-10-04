@@ -18,7 +18,7 @@ return {
         dependencies = {
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
     },
     {
@@ -59,10 +59,11 @@ return {
                 enabled = true,
                 animate = {
                     duration = {
-                        step = 15, total = 500
+                        step = 15,
+                        total = 500,
                     },
-                    easing = "outCirc"
-                }
+                    easing = "outCirc",
+                },
             },
             statuscolumn = { enabled = true },
             words = { enabled = true },
@@ -207,7 +208,7 @@ return {
     {
         "olimorris/persisted.nvim",
         event = "BufReadPre", -- Ensure the plugin loads only when a buffer has been loaded
-        opts = {}
+        opts = {},
     },
     {
         "catgoose/nvim-colorizer.lua",
@@ -215,7 +216,7 @@ return {
         opts = {},
     },
     {
-        'stevearc/overseer.nvim',
+        "stevearc/overseer.nvim",
         opts = {},
-    }
+    },
 }
