@@ -43,6 +43,12 @@ keymap.general = {
         ["D"] = { '"_D', desc = "Delete till end of line" },
         ["<leader>d"] = { '"*d', desc = "Cut with motion" },
         ["<leader>D"] = { '"*D', desc = "Cut till end of line" },
+        ["<C-w><leader>"] = {
+            function()
+                require("which-key").show({ keys = "<C-w>", loop = true })
+            end,
+            desc = "Window Hydra Mode (which-key)"
+        },
     },
     i = {
         -- navigate within insert mode
@@ -183,7 +189,7 @@ keymap.lspconfig = {
 
         ["K"] = {
             function()
-                vim.lsp.buf.hover()
+                require("pretty_hover").hover()
             end,
             desc = "LSP hover",
         },
@@ -218,7 +224,9 @@ keymap.lspconfig = {
 
         ["grr"] = {
             function()
-                require("telescope.builtin").lsp_references()
+                require("telescope.builtin").lsp_references({
+                    include_declaration = false,
+                })
             end,
             desc = "LSP references",
         },
@@ -232,14 +240,14 @@ keymap.lspconfig = {
 
         ["[d"] = {
             function()
-                vim.diagnostic.goto_prev({ float = { border = "rounded" } })
+                vim.diagnostic.jump({ count = -1, float = { border = "rounded" } })
             end,
             desc = "Goto prev",
         },
 
         ["]d"] = {
             function()
-                vim.diagnostic.goto_next({ float = { border = "rounded" } })
+                vim.diagnostic.jump({ count = 1, float = { border = "rounded" } })
             end,
             desc = "Goto next",
         },

@@ -55,7 +55,28 @@ return {
             dim = { enabled = true },
             -- indent = { enabled = true },
             input = { enabled = true },
-            picker = { enabled = true },
+            picker = { enabled = true, layout = {
+                reverse = true,
+                layout = {
+                  box = "horizontal",
+                  backdrop = false,
+                  width = 0.8,
+                  height = 0.9,
+                  border = "none",
+                  {
+                    box = "vertical",
+                    { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+                    { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
+                  },
+                  {
+                    win = "preview",
+                    title = "{preview:Preview}",
+                    width = 0.45,
+                    border = "rounded",
+                    title_pos = "center",
+                  },
+                },
+            } },
             notifier = { enabled = true },
             quickfile = { enabled = true },
             scroll = {
@@ -221,5 +242,23 @@ return {
     {
         "stevearc/overseer.nvim",
         opts = {},
+    },
+    {
+        'MagicDuck/grug-far.nvim',
+        config = function()
+            -- optional setup call to override plugin options
+            -- alternatively you can set options with vim.g.grug_far = { ... }
+            require('grug-far').setup({
+                -- options, see Configuration section below
+                -- there are no required options atm
+            });
+        end
+    },
+    {
+        "OXY2DEV/markview.nvim",
+        lazy = false,
+        dependencies = {
+            "saghen/blink.cmp"
+        },
     },
 }

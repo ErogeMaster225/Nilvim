@@ -35,7 +35,7 @@ function config.telescope()
                 height = 0.80,
                 preview_cutoff = 120,
             },
-            file_ignore_patterns = { "node_modules" },
+            file_ignore_patterns = { "node_modules", "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lock" },
             path_display = { "truncate" },
             winblend = 0,
             border = {},
@@ -53,6 +53,7 @@ function config.telescope()
         },
         pickers = {
             find_files = {
+                initial_mode = "normal",
                 find_command = {
                     "rg",
                     "--files",
@@ -69,10 +70,10 @@ function config.telescope()
                 hijack_netrw = true,
             },
             fzf = {
-                fuzzy = true, -- false will only do exact matching
+                fuzzy = true,                   -- false will only do exact matching
                 override_generic_sorter = true, -- override the generic sorter
-                override_file_sorter = true, -- override the file sorter
-                case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                override_file_sorter = true,    -- override the file sorter
+                case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                 -- the default case_mode is "smart_case"
             },
         },
@@ -103,9 +104,17 @@ function config.mini()
 end
 
 function config.neotree()
+    local function on_move(data)
+        Snacks.rename.on_rename_file(data.source, data.destination)
+    end
+    local events = require("neo-tree.events")
     require("neo-tree").setup({
         hide_root_node = true,
         retain_hidden_root_indent = true,
+        event_handlers = {
+            { event = events.FILE_MOVED,   handler = on_move },
+            { event = events.FILE_RENAMED, handler = on_move },
+        },
         filesystem = {
             filtered_items = {
                 show_hidden_count = false,

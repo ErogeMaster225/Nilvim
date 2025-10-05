@@ -122,7 +122,7 @@ function config.lspconfig()
     }
     vim.lsp.config("*", { capabilities = capabilities })
     vim.lsp.enable("lua_ls")
-    vim.lsp.enable("eslint-lsp")
+    vim.lsp.enable("eslint")
     vim.lsp.enable("vtsls")
     vim.diagnostic.config({ virtual_text = true })
 end
@@ -172,16 +172,49 @@ function config.conform()
     local conform = require("conform")
     conform.setup({
         formatters_by_ft = {
-            javascript = { "eslint_d", "prettier" },
-            javascriptreact = { "eslint_d", "prettier" },
-            typescript = { "eslint_d", "prettier" },
-            typescriptreact = { "eslint_d", "prettier" },
+            javascript = { "eslint", "prettier" },
+            javascriptreact = { "eslint", "prettier" },
+            typescript = { "eslint", "prettier" },
+            typescriptreact = { "eslint", "prettier" },
         },
-        format_on_save = {
-            -- These options will be passed to conform.format()
-            timeout_ms = 5000,
-            lsp_fallback = true,
+        formatters = {
+            prettier = {
+                -- This will make prettier only run if a config file is found
+                condition = function(ctx)
+                    return vim.fs.find({
+                        ".prettierrc",
+                        ".prettierrc.json",
+                        ".prettierrc.js",
+                        "prettier.config.js",
+                        "prettier.config.cjs",
+                    }, { upward = true, path = ctx.filename })[1]
+                end,
+            },
         },
+        format_on_save = function(bufnr)
+            -- Disable with a global or buffer-local variable
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                return
+            end
+            return { timeout_ms = 500, lsp_format = "fallback" }
+        end,
+    })
+    vim.api.nvim_create_user_command("FormatDisable", function(args)
+        if args.bang then
+            -- FormatDisable! will disable formatting just for this buffer
+            vim.b.disable_autoformat = true
+        else
+            vim.g.disable_autoformat = true
+        end
+    end, {
+        desc = "Disable autoformat-on-save",
+        bang = true,
+    })
+    vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.b.disable_autoformat = false
+        vim.g.disable_autoformat = false
+    end, {
+        desc = "Re-enable autoformat-on-save",
     })
 end
 

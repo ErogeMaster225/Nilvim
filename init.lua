@@ -30,11 +30,16 @@ if vim.g.neovide then
     vim.o.guifont = "0xProto,termicons,JetBrainsMono Nerd Font Propo:h14"
     -- Run the setup
     setup_fnm_env()
-    --[[ vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-            vim.cmd("cd $HOME")
+    vim.keymap.set({ 'n' }, '<F11>',
+        function()
+            if vim.g.neovide_fullscreen == false then
+                vim.g.neovide_fullscreen = true
+            else
+                vim.g.neovide_fullscreen = false
+            end
         end,
-    }) ]]
+        { silent = true }
+    )
 end
 
 require("core")

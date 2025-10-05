@@ -10,6 +10,7 @@ opt.clipboard = "unnamedplus"
 opt.cursorline = true
 opt.numberwidth = 6
 opt.statuscolumn = " %s%=%{v:relnum?v:relnum:v:lnum}%= ▎ "
+opt.diffopt = "internal,filler,closeoff,algorithm:patience,indent-heuristic,inline:char,linematch:60"
 -- Use space as leader key
 g.mapleader = " "
 
@@ -53,7 +54,7 @@ opt.shell = "pwsh"
 -- disable folding on startup
 opt.foldenable = true
 opt.foldcolumn = "1" -- '0' is not bad
-opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
