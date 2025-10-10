@@ -182,7 +182,7 @@ keymap.lspconfig = {
 
         ["grd"] = {
             function()
-                require("telescope.builtin").lsp_definitions()
+                require("snacks.picker").lsp_definitions()
             end,
             desc = "LSP definition",
         },
@@ -196,7 +196,7 @@ keymap.lspconfig = {
 
         ["gri"] = {
             function()
-                require("telescope.builtin").lsp_implementations()
+                require("snacks.picker").lsp_implementations()
             end,
             desc = "LSP implementation",
         },
@@ -210,7 +210,7 @@ keymap.lspconfig = {
 
         ["grt"] = {
             function()
-                require("telescope.builtin").lsp_type_definitions()
+                require("snacks.picker").lsp_type_definitions()
             end,
             desc = "LSP definition type",
         },
@@ -224,7 +224,7 @@ keymap.lspconfig = {
 
         ["grr"] = {
             function()
-                require("telescope.builtin").lsp_references({
+                require("snacks.picker").lsp_references({
                     include_declaration = false,
                 })
             end,
@@ -341,6 +341,11 @@ keymap.snacks = {
     n = {
         ["<leader>zz"] = { require("snacks").zen.zen, desc = "Toggle Zenmode" },
         ["<leader>zm"] = { require("snacks").zen.zoom, desc = "Toggle Zenmode Zoom" },
+    },
+}
+keymap.nvchad = {
+    n = {
+        ["<leader>ts"] = { require("nvchad.themes").open, desc = "Theme switcher" },
     },
 }
 return keymap

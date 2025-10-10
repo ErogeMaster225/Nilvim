@@ -2,7 +2,19 @@ require("core.options")
 require("core.clipboard")
 require("core.helper").load_keymap("general")
 require("core.plugins")
-vim.api.nvim_create_user_command("LuaBuf", function(opts)
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+    dofile(vim.g.base46_cache .. v)
+end
+-- set snacks base46 highlight using telescope highlight
+vim.api.nvim_set_hl(0, "SnacksPickerPrompt", { link = "TelescopePromptPrefix" })
+vim.api.nvim_set_hl(0, "SnacksPickerBorder", { link = "TelescopeBorder" })
+vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { link = "TelescopePromptBorder" })
+vim.api.nvim_set_hl(0, "SnacksPickerPreviewTitle", { link = "TelescopePreviewTitle" })
+vim.api.nvim_set_hl(0, "SnacksPickerListTitle", { link = "TelescopeResultsTitle" })
+vim.api.nvim_set_hl(0, "SnacksPickerInput", { link = "TelescopePromptNormal" })
+vim.api.nvim_set_hl(0, "SnacksPickerInputTitle", { link = "TelescopePromptTitle" })
+
+vim.api.nvim_create_user_command("PrettyPrint", function(opts)
     -- Run the Lua code the user typed
     local chunk, err = load("return " .. opts.args)
     local ok, result
@@ -20,7 +32,7 @@ vim.api.nvim_create_user_command("LuaBuf", function(opts)
     if not ok then
         output = "Error: " .. (result or err)
     else
-        output = vim.pretty_print(result)
+        output = vim.print(result)
     end
 
     -- Create scratch buffer
@@ -38,12 +50,14 @@ end, {
     nargs = "+",
     complete = "lua",
 })
-local telescope = require("telescope.builtin")
 
 -- Define a custom command to search Neovim config folder
 vim.api.nvim_create_user_command("FindConfigFiles", function()
-    telescope.find_files({
+    require("telescope.builtin").find_files({
         prompt_title = "< Neovim Config Files >",
         cwd = vim.fn.stdpath("config"), -- This is the Neovim config folder
     })
+end, {})
+vim.api.nvim_create_user_command("SnacksPicker", function()
+    require("snacks").picker()
 end, {})

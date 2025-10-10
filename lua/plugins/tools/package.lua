@@ -8,6 +8,12 @@ return {
         config = config.which_key,
     },
     {
+        "m4xshen/hardtime.nvim",
+        lazy = false,
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {},
+    },
+    {
         "nvim-telescope/telescope.nvim",
         opts = {},
         cmd = "Telescope",
@@ -35,11 +41,11 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "JoosepAlviste/nvim-ts-context-commentstring",
-            opts = { enable_autocmd = false }
+            opts = { enable_autocmd = false },
         },
         config = function()
             require("Comment").setup({
-                pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
             })
         end,
     },
@@ -55,28 +61,45 @@ return {
             dim = { enabled = true },
             -- indent = { enabled = true },
             input = { enabled = true },
-            picker = { enabled = true, layout = {
-                reverse = true,
+            picker = {
+                enabled = true,
                 layout = {
-                  box = "horizontal",
-                  backdrop = false,
-                  width = 0.8,
-                  height = 0.9,
-                  border = "none",
-                  {
-                    box = "vertical",
-                    { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
-                    { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
-                  },
-                  {
-                    win = "preview",
-                    title = "{preview:Preview}",
-                    width = 0.45,
-                    border = "rounded",
-                    title_pos = "center",
-                  },
+                    reverse = true,
+                    layout = {
+                        box = "horizontal",
+                        backdrop = false,
+                        width = 0.8,
+                        height = 0.9,
+                        border = "none",
+                        {
+                            box = "vertical",
+                            {
+                                win = "list",
+                                title = " Results ",
+                                title_pos = "center",
+                                border = "rounded",
+                            },
+                            {
+                                win = "input",
+                                height = 1,
+                                border = "rounded",
+                                title = "{title} {live} {flags}",
+                                title_pos = "center",
+                            },
+                        },
+                        {
+                            win = "preview",
+                            title = "{preview:Preview}",
+                            width = 0.45,
+                            border = "rounded",
+                            title_pos = "center",
+                        },
+                    },
                 },
-            } },
+                matcher = {
+                    frecency = true
+                }
+            },
             notifier = { enabled = true },
             quickfile = { enabled = true },
             scroll = {
@@ -221,6 +244,15 @@ return {
         end,
     },
     {
+        'Bekaboo/dropbar.nvim',
+        config = function()
+            local dropbar_api = require('dropbar.api')
+            vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+            vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+            vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+        end
+    },
+    {
         "sindrets/diffview.nvim",
         lazy = false,
         config = function()
@@ -244,21 +276,21 @@ return {
         opts = {},
     },
     {
-        'MagicDuck/grug-far.nvim',
+        "MagicDuck/grug-far.nvim",
         config = function()
             -- optional setup call to override plugin options
             -- alternatively you can set options with vim.g.grug_far = { ... }
-            require('grug-far').setup({
+            require("grug-far").setup({
                 -- options, see Configuration section below
                 -- there are no required options atm
-            });
-        end
+            })
+        end,
     },
     {
         "OXY2DEV/markview.nvim",
         lazy = false,
         dependencies = {
-            "saghen/blink.cmp"
+            "saghen/blink.cmp",
         },
     },
 }
