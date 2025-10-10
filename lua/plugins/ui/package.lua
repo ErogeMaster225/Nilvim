@@ -2,6 +2,21 @@ local config = require("plugins.ui.config")
 return {
     "nvim-tree/nvim-web-devicons",
     {
+        "nvchad/ui",
+        config = function()
+            require "nvchad"
+            require("core.helper").load_keymap("nvchad")
+        end
+    },
+    {
+        "nvchad/base46",
+        lazy = true,
+        build = function()
+            require("base46").load_all_highlights()
+        end,
+    },
+    "nvchad/volt",
+    {
         "akinsho/bufferline.nvim",
         version = "*",
         dependencies = {
